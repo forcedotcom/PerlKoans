@@ -8,12 +8,12 @@ tl;dr: run road_to_illumination.pl, fix test failures specified, repeat until al
 prerequisites
 =============
 
-Perl::Koans - http://chorankates-wsl/PerlKoans-latest.tar.gz
+Perl::Koans - https://github.com/forcedotcom/PerlKoans/blob/freeze/PerlKoans-latest.tar.gz (0.50)
     Perl 5.8.8+
                 - OSX and Ubuntu machines already have Perl
                 - If you're using Windows, http://www.strawberryperl.com
                 
-    ~/perl101/  - don't actually need it to be this path, but this is what training will refer to
+    ~/PerlKoans/  - don't actually need it to be this path, but this is default
 
 to confirm your environment is working:
     conor@wsl $ perl -c road_to_illumination.pl
