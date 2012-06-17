@@ -38,8 +38,6 @@ use base 'Test::Builder::Module';
 our $CLASS = __PACKAGE__; # this probably doesn't need to be our..
 our $tb    = $CLASS->builder;
 
-our $TEST_COUNT = determine_test_count();
-
 $tb->no_plan();  
 $tb->level(2);  # this sets the caller() level so we get the failure from about_*, not __PACKAGE__
 
@@ -114,13 +112,20 @@ sub get_return_code {
 
 sub determine_test_count {
     my $count = 0;
+<<<<<<< HEAD
     my $test_functions = qr/^\s*(is|is_deeply|like|pass)\s*\(/i;
     
     return $TEST_COUNT if $TEST_COUNT; # need to make sure we only call this once
     
     my $dir   = (-f 'road_to_illumination.pl') ? './' : '../../' ;
     my @files = glob(sprintf("%s%s", $dir, '*.pl')); # this is brittle, do something better
+=======
+    my $test_functions = qr/^\s*(is|is_deeply|like|ok|pass)\s*\(/i; 
+>>>>>>> e49fd9e... fixing issue #1, the test count that display_progress() uses now has context about being run by about_\*.pl or via road_to_illumination.pl
     
+	my @files = grep { $_ =~ /about_.*\.pl/ } values %INC;
+	push @files, $0 if $#files == -1;
+
     for my $file (@files) {
         open (my $fh, '<', $file) or next;
         
@@ -138,7 +143,7 @@ sub display_progress {
     # display_progress($tests_completed) - prints an ASCII graph based on number of tests done / remaining
     my $completed  = shift;
        $completed  = 0 unless $completed;
-    my $total      = $TEST_COUNT;
+    my $total      = determine_test_count();
     my $max_length = 50;  # hah, string length, screen width
     
     my $done = int(($completed / $total)  * $max_length);
