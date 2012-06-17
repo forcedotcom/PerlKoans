@@ -31,7 +31,7 @@
 package Perl::Koans::Functions;
 use warnings;
 
-use Cwd; # TODO should we make a note about this?
+use Cwd;
 
 use lib './lib';
 use Perl::Koans;
@@ -43,7 +43,6 @@ use Perl::Koans;
 #                                                  http://perldoc.perl.org/index-functions.html
 
 sub about_scalar_functions {
-    # TODO crypt and pack for a future revision
     
     my $line = "this is a test\n";
     my $str  = 'so is this';
@@ -86,8 +85,8 @@ sub about_numeric_functions {
     is (abs(-10),          __, 'abs() returns the absolute value of a number');
     is (sqrt(64),          __, 'sqrt() returns the square root of a number'); # more in about_math.pl
     
-    is (hex('0xFF'),       __, 'hex() returns the decimal value of a hex number'); # this always trips people up, if you want to turn a decimal into a hex, use printf/sprintf/unpack    
-    is (sprintf('%x', __), __, 'sprintf() can turn decimal numbers into hex numbers'); # TODO this hint is crap, and we just covered %x in sprintf, but i still feel like we need this
+    is (hex('0xFF'),       __, 'hex() returns the decimal value of a hex number'); # this always trips people up, if you want to turn a decimal into a hex, use printf/sprintf/unpack
+    is (sprintf('%x', __), __, 'sprintf() can turn decimal numbers into hex numbers'); 
     is (int(100.50),       __, 'int() returns an integer');
     
     is (oct(100),          __, 'oct(octal)  returns the corresponding value');
@@ -109,9 +108,8 @@ sub about_numeric_functions {
     
     is (rand(__) < 100,                  1, 'rand(max) returns a random fractional number less than max');
     is (int(rand(100)) < 100,           __, 'int() often wraps rand() to get whole numbers');
-    isnt ($colors[int(rand($#colors))], __, 'putting it all together'); # TODO write a better hint here, but i mean for this to be complex
+    isnt ($colors[int(rand($#colors))], __, 'putting it all together'); 
     
-	# TODO  write some tests here
     # can't mention rand() without srand() -- that's seed rand, not secure rand: http://perldoc.perl.org/functions/srand.html
     
     return (Perl::Koans::get_return_code()); 
@@ -199,7 +197,7 @@ sub about_file_functions {
     my $new_filename   = printf('%s/xyzzy.txt', $new_dir);
     my $rename_results = rename($filename, $new_filename);
     
-    is ($rename_results,  __, 'rename() is akin to move'); # TODO need to mention the windows weirdness re: cross drive renames?
+    is ($rename_results,  __, 'rename() is akin to move'); 
     is (-f $filename,     __, 'rename() is akin to move -- part 2');
     is (-f $new_filename, __, 'rename() is akin to move -- part 3');    
     

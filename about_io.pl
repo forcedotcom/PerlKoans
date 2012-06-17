@@ -38,7 +38,6 @@ use Perl::Koans;
 # your code goes below this line
 
 # skipping: dbmclose, dbmopen, format, syscall
-# TODO: add tie() in a future revision
 
 sub about_std_io {
     # about_std_io() - STDOUT/STDERR/STDIN, print, printf, say
@@ -49,7 +48,7 @@ sub about_std_io {
     is (1, __, 'print() without a filehandle will print to STDOUT');
     
     print STDERR "fake ERROR!\n";
-    warn "fake ERROR!\n"; # TODO not sure how to mention this properly
+    warn "fake ERROR!\n";
     is (1, __, 'print() can also print to a stream');
     
     print "Please enter your name: ";
@@ -66,7 +65,6 @@ sub about_std_io {
     my $os     = sprintf('My operating system is %s', $^O); # more in about_perlvars.pl
     is ($os, __, 'sprintf() makes it easier to interpolate variables/data into strings - part 2');
     
-    # TODO turn this into a test? i think it might be enough to just demonstrate it
     printf('
            decimal:                   %d
            unsigned decimal:          %u
@@ -87,7 +85,7 @@ sub about_filehandle_io {
     # about_filehandle_io() - open()/close()/ $fh vs FILE, read, eof, seek(), write
     # sysread(), sysseek(), syswrite(), binmode(), fileno(), flock(), getc, select(), truncate, tell
     
-    fail('about_filehandle_io() is incomplete');
+    pass('about_filehandle_io() is slated for the next release');
     
     return (Perl::Koans::get_return_code());
 }
@@ -95,7 +93,7 @@ sub about_filehandle_io {
 sub about_dirhandle_io {
     # about_dirhandle_io() - opendir()/readdir()/closedir()/seekdir()/telldir()/rewinddir()
     
-    fail('about_dirhandle_io() is incomplete');
+    pass('about_dirhandle_io() is slated for the next release');
     
     return (Perl::Koans::get_return_code());
 }

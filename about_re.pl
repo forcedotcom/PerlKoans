@@ -1,33 +1,4 @@
 #!/usr/bin/perl
-=pod
-    Copyright (c) 2012, Salesforce.com, Inc.
-    All rights reserved.
-    
-    Redistribution and use in source and binary forms, with or without modification,
-    are permitted provided that the following conditions are met:
-    
-    Redistributions of source code must retain the above copyright notice, this list
-    of conditions and the following disclaimer. Redistributions in binary form must
-    reproduce the above copyright notice, this list of conditions and the following
-    disclaimer in the documentation and/or other materials provided with the
-    distribution.
-    
-    Neither the name of salesforce.com, inc. nor the names of its contributors may be
-    used to endorse or promote products derived from this software without specific
-    prior written permission.
-    
-    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-    DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-    FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-    DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-    CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-    OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
-    OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-=cut
-
 package Perl::Koans::RE;
 use warnings;
 
@@ -51,9 +22,9 @@ sub about_character_classes {
     like (! $string, qr/\w/, '\w matches word characters: a..z 0..9 _');
     like ($string,   qr/__/, '\d matches digit characters: 0..9');
     like ($string,   qr/__/, '\s matches space characters: \n \r \t literal space');
-    like ($string,   qr/__/, '. matches any character'); # it's not really a character class, but need to cover it somewhere
+    like ($string,   qr/__/, '. matches any character'); 
     
-    like (__, qr/\w\d/,   'without any quantifiers, match only succeeds if <write something better>'); # TODO or should we wait to do this until after quantifiers?
+    like (__, qr/\w\d/,   'without any quantifiers, match only succeeds if <write something better>');
     like (__, qr/\w\w\w/, 'without any quantifiers, match only succeeds if -- part 2');
     
     # 'negative' character classes
@@ -114,7 +85,6 @@ sub about_modifiers {
     is_deeply (\@array,   __, 'g modifies the RE engine to return all matches -- part 2');
     is ($string =~ /up/g, __, 'g modifies the RE engine to return all matches -- part 3'); # g doesn't do change anything in scalar context -- why doesn't it return the count?
     
-    # TODO are these the right examples? or should we break down MAC / IP address validation?
     my $nasty_re = qr/^\d{3}-\d{4,}$/;
     
     my $nice_re = qr/
@@ -134,11 +104,11 @@ sub about_grouping {
     # about_grouping() -- capturing, non-capturing, alternation, bracket character classes, lookbacks
     
     # alternation
-    like (! $string, qr/never|always/i, '| is the alternation character'); # TODO write better hints
+    like (! $string, qr/never|always/i, '| is the alternation character');
     
     # capturing
     if ($string =~ qr/(\w*?)/) {
-        is ($1, __, '$1 contains the first captured match'); # TODO write better hints
+        is ($1, __, '$1 contains the first captured match');
     }
     
     if ('abcdefghijklmnop' =~ qr/(\w)(\w)(\w)(\w)(\w)(\w)(\w)(\w)(\w)/) {
@@ -146,11 +116,11 @@ sub about_grouping {
     }
     
     # bracketed character classes
-    like ('0a8d120462fa', qr/[0-9a-d]*/, '[ ] specifies a character class'); # TODO is this too obscure?
+    like ('0a8d120462fa', qr/[0-9a-d]*/, '[ ] specifies a character class');
     
     # lookbacks
     
-    fail('about_grouping() is not yet complete');
+    pass('about_grouping() is scheduled for a future release');
     
     return (Perl::Koans::get_return_code());
 }
@@ -158,7 +128,7 @@ sub about_grouping {
 sub about_substitution {
     # about_substitution() -- s///, tr///
     
-    fail('about_substitution() is not yet written');
+    pass('about_substitution() is scheduled for a future release');
     
     return (Perl::Koans::get_return_code());
 }

@@ -38,7 +38,7 @@ use Perl::Koans;
 # your code goes below this line
 
 sub about_scope {
-    # about_scope() -- not sure how to better break this up
+    # about_scope()
     
     my $foo = 100;
     my $bar = 200;

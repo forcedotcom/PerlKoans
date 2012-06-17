@@ -52,7 +52,7 @@ sub about_file_tests {
         
     );
     
-    # TODO is it ok to not cover the 'real uid/gid' cases? personally, i've never used anything except effective
+
     is (-e $files{file_exists},    __, "-e file exists");
     is (-f $files{does_not_exist}, __, "-f file is a file");
     is (-d $files{this_is_a_dir},  __, "-d file is a directory");

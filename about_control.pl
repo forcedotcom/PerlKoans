@@ -29,7 +29,6 @@
 =cut
 
 package Perl::Koans::Control;
-# TODO add: caller
 
 use lib './lib';
 use Perl::Koans;
@@ -63,8 +62,7 @@ sub about_if {
     # other notes:
     #   defined         1 or '' if operand is undef
     #   exists          1 or '' if hash key/array ref index is populated
-    #   ()              just like algebra, parentheses are used to control order of operations (TODO decide how much we want to talk about capture groups, etc)
-    
+    #   ()              just like algebra, parentheses are used to control order of operations    
     # chaining comparisons, support shortcircuiting
 
     
@@ -104,7 +102,6 @@ sub about_if {
         fail('chaining');
     }
     
-    # TODO need to add some better comments to explain intent
     if ($fizzy{__} == 1 and $baz[2] == 2) {
         fail('short circuiting on and');
     }
@@ -115,10 +112,6 @@ sub about_if {
         fail('don\'t go here');
     }
     
-    # TODO and more complex shortcircuiting examples
-    my $true  = 1;
-    my $false = 0;
-
     return (Perl::Koans::get_return_code()); 
 }
 

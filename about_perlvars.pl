@@ -37,8 +37,6 @@ use Perl::Koans;
 ################
 # your code goes below this line
 
-# TODO cover %SIG
-
 sub about_envvars {
     # about_envvars() -- this might not belong here, also: what other tests can i run?
     
@@ -52,8 +50,8 @@ sub about_inc {
     
     # @INC stores the paths Perl will look in when use/require is called
     printf('@INC: %s%s', @INC, '\n');
-    is ($INC[-1], __, 'the last element of @INC is the working directory'); # TODO true, but unhelpful
-    is ($INC[0],  __, 'if $ENV{PERL5LIB} is set, the values are prepended to @INC'); # see above
+    is ($INC[-1], __, 'the last element of @INC is the working directory'); 
+    is ($INC[0],  __, 'if $ENV{PERL5LIB} is set, the values are prepended to @INC'); 
     
     # %INC stores the modules currently being used by Perl (package => full_file_path)
     print "\%INC:\n";
@@ -61,7 +59,7 @@ sub about_inc {
         printf("%s\t=>%s", $package, $INC{$package});
     }
     
-    is ($INC{__}, '/usr/share/perl/5.10/Autoloader.pm', 'use %INC to find out which specific libraries you are using'); # TODO this test isnt any good.. what can we do here?
+    is ($INC{__}, '/usr/share/perl/5.10/Autoloader.pm', 'use %INC to find out which specific libraries you are using'); 
 
     return (Perl::Koans::get_return_code());
 }
@@ -71,13 +69,13 @@ sub about_perlvars {
     
     is ($^O, __, '$^O is an operating system identifier'); # linux/solaris/MSWin32/darwin
     is ($<,  __, '$< is the UID of this process');
-    is ($?,  __, '$? is the exit/return code from the last operation'); # TODO this is not a great hint
-    is ($0,  __, '$0 is the relative path/filename for the calling script/module'); # TODO this hint could be better
-    is ($/,  __, '$/ is the line separator used by Perl: \r\n or \n'); # TODO should we mention when it's useful to change this?
-    is ($|,  __, '$| controls flushing, default is 0, but if nonzero, wil flush after every write and print'); # TODO better hint
+    is ($?,  __, '$? is the exit/return code from the last operation'); 
+    is ($0,  __, '$0 is the relative path/filename for the calling script/module'); 
+    is ($/,  __, '$/ is the line separator used by Perl: \r\n or \n'); 
+    is ($|,  __, '$| controls flushing, default is 0, but if nonzero, wil flush after every write and print');
     
     for (5..10) { 
-        is ($_, __, '$_ is the default variable in Perl'); # TODO yes, this is true -- but not that helpful
+        is ($_, __, '$_ is the default variable in Perl'); 
         last;
     }
     
@@ -93,7 +91,7 @@ sub about_perlvars {
     open (my $fh, '<', $0); # bad form, always check $!
     while (<$fh>) {
         is ($., __, '$. is the current line number for the last filehandle accessed');
-        last; # TODO i know, this test kind of sucks. but $. is really cool, i just don't know how better to reference it
+        last; 
     }
     
     # how do we handle tests whose results will change with each execution?
@@ -106,9 +104,8 @@ sub about_perlvars {
 sub about_parameters {
     # about_parameters() - discussion of @_, this function is called with ('foo', 'bar', 'baz')
     
-	# TODO add example using $#_, cover pss-by-reference here?
     my $first = shift @_;
-    is ($first, __, 'shift removes and returns the first element in the array it is called against'); # TODO better hint
+    is ($first, __, 'shift removes and returns the first element in the array it is called against'); 
     
     my $second = shift;
     is ($second, __, 'shift operates on the default array if none is specified');

@@ -50,23 +50,21 @@ sub about_time {
     my @lt_array  = localtime(); # definition of elements: http://perldoc.perl.org/functions/localtime.html
     my $lt_scalar = localtime();
     
-    is   ($lt_array[5], __ - 1900, "index 5 is the current year less 1900"); # TODO figure out how we can test the other elements in a dynamic, but not scary way
-    like ($lt_scalar, qr/__/, "in scalar context, localtime() gives us a human readable timestamp"); # TODO is this hint clear/vague enough? i want you to match anything you know will be in the timestamp: day of week, month, day of month    
+    is   ($lt_array[5], __ - 1900, "index 5 is the current year less 1900"); 
+    like ($lt_scalar, qr/__/, "in scalar context, localtime() gives us a human readable timestamp"); 
     
     # gmtime is just like localtime(), except it returns values localized to Greenwich
     my @gmt_array  = gmtime();
     my $gmt_scalar = gmtime();
     
     is ($#lt_array, __, "gmttime() has the same element count as localtime()");
-    isnt (__, \@gmt_array, "gmttime() has different contents than localtime()"); # TODO better hint
-    
-    ## TODO: add a gmttime($lt_scalar) and localtime($gmt_scalar) type test to show how it can be used as a function as well
+    isnt (__, \@gmt_array, "gmttime() has different contents than localtime()"); 
     
     my $start = localtime();
-    sleep 1; # TODO yuck. should we just reuse $lt_scalar?
+    sleep 1;
     my $finish = localtime();
     
-    is ($finish - $start, __, "localtime() is often used to keep track of how long an operation takes"); # TODO yeah, this is not a good hint. its true, but you should be using time() instead
+    is ($finish - $start, __, "localtime() is often used to keep track of how long an operation takes"); 
     
     
     return (Perl::Koans::get_return_code());

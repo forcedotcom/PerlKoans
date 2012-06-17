@@ -42,7 +42,6 @@ sub about_errors {
 
     my $results;
     
-    # TODO come up with better failure
     $results = open(my $fh, '>', '/etc/passwd');
     
     is ($results, __, 'empty strings are returned for failed operations'); 
@@ -98,7 +97,6 @@ sub about_try_tiny {
     try {
         print "foobar\n";
         
-		#TODO still, do better
         die 'there are only so many div-by-0 examples you can write';
     } catch {
         
@@ -112,7 +110,6 @@ sub about_try_tiny {
         die 'there are only so many div-by-0-examples you can write - part 2';
     } catch {
         
-        # TODO this should be made more different 
         print "caught fatal error\n";
         like ($_, __, 'Try::Tiny stores the exception text in $_');
     } finally {

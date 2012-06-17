@@ -34,11 +34,6 @@ use warnings;
 use lib './lib';
 use Perl::Koans;
 
-## TODO -- are we breaking these methods up fine enough? e.g. about_scalar() vs. about_scalar_assignment(), about_scalar_interpolation()
-
-# TODO add delete() function
-
-
 ################
 # your code goes below this line
 
@@ -89,8 +84,8 @@ sub about_array {
     my $chr_ref  = \@chr;
     my @separate = (\@num, $chr_ref);
     
-    is ($#mixed,          __, 'there are 8 elements in the array'); # TODO need a better hint here
-    is (scalar @separate, __, 'the index count is 2'); # TODO need a better hint here
+    is ($#mixed,          __, 'there are 8 elements in the array');
+    is (scalar @separate, __, 'the index count is 2');
     is ($chr_ref->[0],    __, 'array reference indexes are also 0 based');
     is (__, ['a', 'b', 'c', 'd'] , 'arrays references can be defined directly with brackets');
 
@@ -99,7 +94,7 @@ sub about_array {
     
     my @unsorted = (5, 3, 1, 4, 2);
     my @sorted   = sort @unsorted;
-    is ([1, 2, 3, 4, 5], __, 'sort arrays'); # TODO need a better hint here
+    is ([1, 2, 3, 4, 5], __, 'sort arrays');
     
     my @range = 0..10;
     is (\@range, __, '.. is the range operator, provides list of intermediate values');
@@ -141,7 +136,7 @@ sub about_hash {
     
     
     my %nested = (
-        1 => { # braces enclose hashes inside hashes # TODO this isn't the entire picture, but it's correct enough for now.. agree? same down in %mixed_nest
+        1 => { # braces enclose hashes inside hashes 
             English => 'one',
             Spanish => 'uno',
         }, 
@@ -169,7 +164,7 @@ sub about_hash {
         },
     );
 
-    is ($nested{1}{English}, __, "use the sigil that represents the return type you want"); # TODO better hint here, tie it up with braces vs. brackets
+    is ($nested{1}{English}, __, "use the sigil that represents the return type you want"); 
     is (__, 'tres', "use the sigil that represents the return type you want - part 2");
 
     my @fours = @{ $mixed_nest{4} }; # space is anything but the f-word that rubyists can't stop saying

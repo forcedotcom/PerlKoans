@@ -39,7 +39,6 @@ use Perl::Koans;
 
 sub about_math {
     # about_math() 
-    # TODO break this up into distinct subs?
     
     # increment/decrement
     my $foo = 10;
@@ -59,12 +58,12 @@ sub about_math {
     is ($bar, __, "*= multiples and assigns");
     
     $bar /= 2;
-    is ($bar, __, "/= divides and conquers"); # couldn't help myself. since this is rarely (if ever) used, not sure we should keep it
+    is ($bar, __, "/= divides and conquers"); 
     
     # modulus
     my $baz = 100;
     is ($baz % 50, 0,  "% provides the modulus");
-    is ($baz % 10, __, "% provides the modulus - part 2"); # TODO better hint
+    is ($baz % 10, __, "% provides the modulus - part 2");
     
     my $even = __;
     my $odd  = __;
@@ -73,7 +72,7 @@ sub about_math {
     
     # power of / sqrt
     my $base = 3;
-    is ($base ** 2, _, "** raises first operand to second operand"); # TODO better hint
+    is ($base ** 2, _, "** raises first operand to second operand");
     is ($base ** __, 27, "** raises first operand to second operand - part 2");
     
     $base = 25;

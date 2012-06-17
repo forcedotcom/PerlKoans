@@ -50,8 +50,6 @@ sub about_koans {
     # more about regular expressions in about_re.pl
     like ('Perl is good', qr/great/, 'regular expressions match partial expressions'); 
     
-    # TODO what other tests can we add here?
-    # definitely want some negative tests
     
     return (Perl::Koans::get_return_code()); 
 }

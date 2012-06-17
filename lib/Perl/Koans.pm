@@ -114,7 +114,7 @@ sub get_return_code {
 
 sub determine_test_count {
     my $count = 0;
-    my $test_functions = qr/^\s*(is|is_deeply|like|pass)\s*\(/i; 
+    my $test_functions = qr/^\s*(is|is_deeply|like|pass)\s*\(/i;
     
     return $TEST_COUNT if $TEST_COUNT; # need to make sure we only call this once
     
@@ -125,15 +125,13 @@ sub determine_test_count {
         open (my $fh, '<', $file) or next;
         
         while (<$fh>) {
-            # this is minorly incorrect, only some of our hardcoded fail/pass scenarios are pairs
-            $count++ if $_ =~ $test_functions;
-            
+            $count++ if $_ =~ $test_functions; 
         }
         
         close($fh);
     }
     
-    return ($count - $#files); # we need to subtract the tests that are required by road_to_illumination.pl 
+    return ($count - $#files); # we need to subtract the tests that are in road_to_illumination.pl 
 }   
 
 sub display_progress {
@@ -150,12 +148,10 @@ sub display_progress {
     $output   .= '_' x $tbd;
     
     print "$output $completed/$total\n";
-    return $output; # for testing purposes
 }
 
 sub print_illumination {
     # pure cheese.
-	# TODO add code here to prevent it from being printed if we are being called from by a script called from road_to_illumination.pl -
 
     print <<HERE
           `--:-...`````````````````....           
