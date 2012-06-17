@@ -116,6 +116,7 @@ sub determine_test_count {
     
 	my @files = grep { $_ =~ /about_.*\.pl/ } values %INC;
 	push @files, $0 if $#files == -1;
+	push @files, 'road_to_illumination.pl';
 
     for my $file (@files) {
         open (my $fh, '<', $file) or next;
@@ -129,7 +130,7 @@ sub determine_test_count {
         close($fh);
     }
     
-    return ($count - $#files); # we need to subtract the tests that are required by road_to_illumination.pl 
+    return $count; 
 }   
 
 sub display_progress {
