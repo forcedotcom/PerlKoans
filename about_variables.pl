@@ -187,7 +187,7 @@ sub about_hash {
 ################
 
 unless (caller(0)) {
-    run(@ARGV);
+    run(@ARGV) or print_illumination();
     exit();
 }
 
@@ -198,7 +198,7 @@ sub run {
     $results += about_array();
     $results += about_hash();
     
-    return ($results == 0) ? print_illumination() : bail($results);
+    return ($results) ? bail($results) : $results;
 }
 
 

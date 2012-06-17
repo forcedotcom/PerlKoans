@@ -92,7 +92,7 @@ sub about_time_hi_res {
 ################
 
 unless (caller(0)) {
-    run(@ARGV);
+    run(@ARGV) or print_illumination();
     exit();
 }
 
@@ -103,7 +103,7 @@ sub run {
     $results += about_time();
     $results += about_time_hi_res();
     
-    return ($results == 0) ? print_illumination() : bail($results);
+    return ($results) ? bail($results) : $results;
 }
 
 

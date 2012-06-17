@@ -49,7 +49,7 @@ sub count {
 ################
 
 unless (caller(0)) {
-    run(@ARGV);
+    run(@ARGV) or print_illumination();
     exit();
 }
 
@@ -70,8 +70,7 @@ sub run {
     is ($count, (map { $x += $roll_three_dice[$_] } @roll_three_dice), 'count(\@array) sums the values of the rolls in @array');
     
     
-    
-    return ($results == 0) ? print_illumination() : bail($results);
+    return ($results) ? bail($results) : $results;
 }
 
 

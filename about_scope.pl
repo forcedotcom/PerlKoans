@@ -77,7 +77,7 @@ sub about_scope {
 ################
 
 unless (caller(0)) {
-    run(@ARGV);
+    run(@ARGV) or print_illumination();
     exit();
 }
 
@@ -87,7 +87,7 @@ sub run {
     $results += about_scope();
     
     ## record results somewhere in Perl::Koans namespace
-    return ($results == 0) ? print_illumination() : bail($results);
+    return ($results) ? bail($results) : $results;
 }
 
 

@@ -94,7 +94,7 @@ sub about_stat {
 ################
 
 unless (caller(0)) {
-    run(@ARGV);
+    run(@ARGV) or print_illumination();
     exit();
 }
 
@@ -105,7 +105,7 @@ sub run {
     $results += about_file_tests();
     $results += about_stat();
     
-    return ($results == 0) ? print_illumination() : bail($results);
+    return ($results) ? bail($results) : $results;
 }
 
 

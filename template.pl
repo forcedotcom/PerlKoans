@@ -42,7 +42,7 @@ use Perl::Koans;
 ################
 
 unless (caller(0)) {
-    run(@ARGV);
+    run(@ARGV) or print_illumination();
     exit();
 }
 
@@ -51,7 +51,7 @@ sub run {
     my $results = 0;
     
     
-    return ($results == 0) ? print_illumination() : bail($results);
+    return ($results) ? bail($results) : $results;
 }
 
 

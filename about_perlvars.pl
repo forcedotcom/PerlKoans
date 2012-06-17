@@ -124,7 +124,7 @@ sub about_parameters {
 ################
 
 unless (caller(0)) {
-    run(@ARGV);
+    run(@ARGV) or print_illumination();
     exit();
 }
 
@@ -137,7 +137,7 @@ sub run {
     $results += about_perlvars();
     $results += about_parameters('foo', 'bar', 'baz');
     
-    return ($results == 0) ? print_illumination() : bail($results);
+    return ($results) ? bail($results) : $results;
 }
 
 

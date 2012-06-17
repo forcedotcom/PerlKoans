@@ -105,7 +105,7 @@ sub about_dirhandle_io {
 ################
 
 unless (caller(0)) {
-    run(@ARGV);
+    run(@ARGV) or print_illumination();
     exit();
 }
 
@@ -117,7 +117,7 @@ sub run {
     $results += about_filehandle_io();
     $results += about_dirhandle_io();
     
-    return ($results == 0) ? print_illumination() : bail($results);
+    return ($results) ? bail($results) : $results;
 }
 
 
