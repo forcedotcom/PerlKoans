@@ -28,9 +28,18 @@
 #
 
 FROM_DIR=`pwd`
-RELEASE_DIR=../freeze/
+RELEASE_DIR=../freeze
+TAR_DIR=/tmp
+BUILD_DIR=PerlKoans
+BUILD_PATH=$TAR_DIR/$BUILD_DIR
+
 VERSION_FILE=$RELEASE_DIR/road_to_illumination.pl
 VERSION=`grep '$VERSION = ' $VERSION_FILE | awk -F ';' '{print $1}' | awk -F ' ' '{print $4}'`
+
+if [ ! -d "$RELEASE_DIR" ]; then
+	echo "ERROR: unable to find release directory [$RELEASE_DIR]"
+	exit 1
+fi
 
 if [ -z "$VERSION" ]; then
 	echo -n "version: "
@@ -38,15 +47,29 @@ if [ -z "$VERSION" ]; then
 fi
 
 echo "using version [$VERSION].."
-
 FILE=PerlKoans-$VERSION.tar
 FILEGZ=$FILE.gz
 
-echo "building [$FILEGZ].."
+echo "creating [$BUILD_PATH].."
 cd $RELEASE_DIR
-echo "stripping TODO.."
+mkdir $BUILD_PATH
+
+echo "copying files into [$BUILD_PATH].."
+cp -r * $BUILD_PATH
+
+# NOTE: when enabling below, need to CD into $BUILD_DIR first
+# echo "stripping TODO.."
 #`bash todo_cleanup.sh`
-tar -cf $FILE --exclude=template.pl --exclude=t/* *
+
+echo "building [$FILEGZ].."
+cd $TAR_DIR
+tar -cf $FILE --exclude="t" $BUILD_DIR/*
 gzip $FILE
 mv -v $FILEGZ $FROM_DIR
+
+if [ -d "$BUILD_DIR" ]; then
+	echo "removing [$BUILD_PATH].."
+	rm -rf $BUILD_PATH
+fi;
+
 cd $FROM_DIR
