@@ -13,7 +13,7 @@ prerequisites
   - Almost all Unix/Linux and OSX machines will already have Perl, confirm with 'perl -v'
   - If you're using Windows, http://www.strawberryperl.com
 
-* ~/perl101/  - don't actually need it to be this path, but this is what training will refer to
+* ~/PerlKoans/  - don't actually need it to be this path, but this is what training will refer to
 
 to confirm your environment is working:  
     conor@box $ perl -c road\_to\_illumination.pl  
