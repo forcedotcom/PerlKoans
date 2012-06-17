@@ -8,7 +8,7 @@ tl;dr: run road\_to\_illumination.pl, fix test failures specified, repeat until 
 prerequisites
 =============
 
-* Perl::Koans - https://github.com/forcedotcom/PerlKoans/blob/freeze/PerlKoans-latest.tar.gz (0.50) 
+* Perl::Koans - https://github.com/forcedotcom/PerlKoans/blob/freeze/PerlKoans-latest.tar.gz?raw=true (0.50) 
 * Perl 5.8.8+
   - Almost all Unix/Linux and OSX machines will already have Perl, confirm with 'perl -v'
   - If you're using Windows, http://www.strawberryperl.com
