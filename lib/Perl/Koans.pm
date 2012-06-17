@@ -112,16 +112,7 @@ sub get_return_code {
 
 sub determine_test_count {
     my $count = 0;
-<<<<<<< HEAD
-    my $test_functions = qr/^\s*(is|is_deeply|like|pass)\s*\(/i;
-    
-    return $TEST_COUNT if $TEST_COUNT; # need to make sure we only call this once
-    
-    my $dir   = (-f 'road_to_illumination.pl') ? './' : '../../' ;
-    my @files = glob(sprintf("%s%s", $dir, '*.pl')); # this is brittle, do something better
-=======
     my $test_functions = qr/^\s*(is|is_deeply|like|ok|pass)\s*\(/i; 
->>>>>>> e49fd9e... fixing issue #1, the test count that display_progress() uses now has context about being run by about_\*.pl or via road_to_illumination.pl
     
 	my @files = grep { $_ =~ /about_.*\.pl/ } values %INC;
 	push @files, $0 if $#files == -1;
