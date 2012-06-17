@@ -115,8 +115,7 @@ sub determine_test_count {
     my $test_functions = qr/^\s*(is|is_deeply|like|ok|pass)\s*\(/i; 
     
 	my @files = grep { $_ =~ /about_.*\.pl/ } values %INC;
-	push @files, $0 if $#files == -1;
-	push @files, 'road_to_illumination.pl';
+	push @files, ($#files == -1 ? $0 : 'road_to_illumination.pl');
 
     for my $file (@files) {
         open (my $fh, '<', $file) or next;
