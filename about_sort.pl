@@ -95,7 +95,7 @@ sub about_custom_sorts {
 ################
 
 unless (caller(0)) {
-    run(@ARGV);
+    run(@ARGV) or print_illumination();
     exit();
 }
 
@@ -106,7 +106,7 @@ sub run {
     about_sort();
     about_custom_sorts();
     
-    return ($results == 0) ? print_illumination() : bail($results);
+    return ($results) ? bail($results) : $results;
 }
 
 

@@ -184,7 +184,7 @@ sub about_until {
 
 
 unless (caller(0)) {
-    run(@ARGV);
+    run(@ARGV) or print_illumination();
     exit();
 }
 
@@ -196,7 +196,7 @@ sub run {
     $results += about_while();
     $results += about_until();
     
-    return ($results == 0) ? print_illumination() : bail($results);
+    return ($results) ? bail($results) : $results;
 }
 
 

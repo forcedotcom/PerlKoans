@@ -66,7 +66,7 @@ sub about_undef {
 
 
 unless (caller(0)) {
-    run(@ARGV);
+    run(@ARGV) or print_illumination();
     exit();
 }
 
@@ -76,7 +76,7 @@ sub run {
     $results += about_defined();
     $results += about_undef();
     
-    return ($results == 0) ? print_illumination() : bail($results);
+    return ($results) ? bail($results) : $results;
 }
 
 
