@@ -27,17 +27,16 @@
 #    OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-FROM_DIR=`pwd`
-RELEASE_DIR=../freeze
+SRC_DIR=`pwd`
 TAR_DIR=/tmp
 BUILD_DIR=PerlKoans
 BUILD_PATH=$TAR_DIR/$BUILD_DIR
 
-VERSION_FILE=$RELEASE_DIR/road_to_illumination.pl
+VERSION_FILE=$SRC_DIR/road_to_illumination.pl
 VERSION=`grep '$VERSION = ' $VERSION_FILE | awk -F ';' '{print $1}' | awk -F ' ' '{print $4}'`
 
-if [ ! -d "$RELEASE_DIR" ]; then
-	echo "ERROR: unable to find release directory [$RELEASE_DIR]"
+if [ ! -f "$VERSION_FILE" ]; then
+	echo "ERROR: unable to find version file [$VERSION_FILE]"
 	exit 1
 fi
 
@@ -51,7 +50,6 @@ FILE=PerlKoans-$VERSION.tar
 FILEGZ=$FILE.gz
 
 echo "creating [$BUILD_PATH].."
-cd $RELEASE_DIR
 mkdir $BUILD_PATH
 
 echo "copying files into [$BUILD_PATH].."
@@ -65,11 +63,11 @@ echo "building [$FILEGZ].."
 cd $TAR_DIR
 tar -cf $FILE --exclude="t" $BUILD_DIR/*
 gzip $FILE
-mv -v $FILEGZ $FROM_DIR
+mv -v $FILEGZ $SRC_DIR
 
 if [ -d "$BUILD_DIR" ]; then
 	echo "removing [$BUILD_PATH].."
 	rm -rf $BUILD_PATH
 fi;
 
-cd $FROM_DIR
+cd $SRC_DIR
