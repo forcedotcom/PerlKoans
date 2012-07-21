@@ -55,8 +55,8 @@ mkdir $BUILD_PATH
 echo "copying files into [$BUILD_PATH].."
 cp -r * $BUILD_PATH
 
-# NOTE: when enabling below, need to CD into $BUILD_DIR first
 # echo "stripping TODO.."
+# cd $BUILD_DIR
 #`bash todo_cleanup.sh`
 
 echo "building [$FILEGZ].."
