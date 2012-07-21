@@ -60,7 +60,7 @@ sub about_std_io {
     
     # sprintf() and it's louder cousin printf() do what you'd expect coming from any other lanaguage
     # http://perldoc.perl.org/functions/sprintf.html
-    my $change = sprintf('$5 less than $20 is %s%f', '$', 20 - 5);
+    my $change = sprintf("$5 less than $20 is %s%f", '$', 20 - 5);
     is ($change, __, 'sprintf() makes it easier to interpolate variables/data into strings - part 1');
     
     my $os     = sprintf('My operating system is %s', $^O); # more in about_perlvars.pl
