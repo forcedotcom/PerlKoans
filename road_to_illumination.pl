@@ -66,7 +66,7 @@ require 'about_dice_project.pl'; # not ready yet.. next release -- and really, w
 #require 'about_xml.pl'; # really  thinking about_xml_simple.pl
 #require 'about_file_find.pl'; # good real world example of callbacks and sub refs
 
-is (Perl::Koans::Koans::run(),      0, 'Perl::Koans::Truth'); # http://is.gd/C34W25
+is (Perl::Koans::Koans::run(),      0, 'Perl::Koans::Koans'); # http://is.gd/C34W25
 is (Perl::Koans::Truth::run(),      0, 'Perl::Koans::Truth'); 
 is (Perl::Koans::Defined::run(),    0, 'Perl::Koans::Defined');
 is (Perl::Koans::Variables::run(),  0, 'Perl::Koans::Variables'); 
