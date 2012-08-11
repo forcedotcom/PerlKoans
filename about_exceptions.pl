@@ -34,6 +34,8 @@ use warnings;
 use lib './lib';
 use Perl::Koans;
 
+use Socket;
+
 ################
 # your code goes below this line
 
@@ -42,11 +44,10 @@ sub about_errors {
 
     my $results;
     
-    # TODO come up with better failure
     $results = open(my $fh, '>', '/etc/passwd');
     
     is ($results, __, 'empty strings are returned for failed operations'); 
-    like ($!,     __, '$! is populated with the error message for failed operations'); 
+    like ($!,     qr/__/, '$! is populated with the error message for failed operations'); 
     
     mkdir('/root/foo') or do {
         # no one is running the koans as root.. right?
@@ -65,8 +66,8 @@ sub about_eval {
         4 / 0;
     };
     
-    is ($results, __, 'eval returns undef if fatal error hit');
-    like ($@,     __, '$@ is populated with the fatal error message');
+    is ($results, undef, 'eval returns undef if fatal error hit');
+    like ($@,     qr/division/, '$@ is populated with the fatal error message');
     
     # ht to markw
     my $error = eval {
@@ -74,12 +75,14 @@ sub about_eval {
         
         return $msg unless 1 == __;
         return $msg unless 5 > 10;
-        return $msg unless -f '/tmp/foo.bar'; # TODO this is not going to work for  for windows users
+        return $msg unless -f '/tmp/foo.bar';
         return $msg unless __ =~ /P.*l/i;
+        
+        return undef;
     };
     
     if ($error) {
-        fail('fix tests in eval block'); # need a better hint here
+        fail('fix tests in eval block'); 
     }
     
     return (Perl::Koans::get_return_code());
@@ -88,7 +91,7 @@ sub about_eval {
 sub about_try_tiny {
     # about_try_tiny() -- only dependency is Test::More
     
-    unless (use_ok('Try::Tiny')) {
+    unless (Test::More::use_ok('Try::Tiny')) {
         # alternatively, you can just change the next line to 'pass' to skip Try::Tiny coverage
         fail('please install Try::Tiny from CPAN to continue');
     } else {
@@ -98,29 +101,45 @@ sub about_try_tiny {
     try {
         print "foobar\n";
         
-		#TODO still, do better
-        die 'there are only so many div-by-0 examples you can write';
+        my $ip_address = ''; # really ,this should be inet_aton(<hostname>)
+        my $hostname   = inet_ntoa($ip_address);
+        
+        print "this code will never be executed\n";
+        
     } catch {
         
         print "caught fatal error\n";
-        like ($_, __, 'Try::Tiny stores the exception text in $_'); # not $@
+        like ($_, qr/__/, 'Try::Tiny stores the exception text in $_'); # not $@
     };
     
     try {
         print "fizzbang\n";
         
-        die 'there are only so many div-by-0-examples you can write - part 2';
+        my $i = 1;
+        my $result;
+        
+        # if you are running more than one potentially fatal command,
+        # it sometimes makes more sense to wrap the operations in eval/try
+        # rather than 'or die' on each line
+        
+        $result = 10 / $i;
+        $i--;        
+        $result = 10 / $i;
+        
+        print "this code will never be executed\n";
+        
     } catch {
         
         # TODO this should be made more different 
         print "caught fatal error\n";
-        like ($_, __, 'Try::Tiny stores the exception text in $_');
+        like ($_, qr/__/, 'Try::Tiny stores the exception text in $_');
     } finally {
         
         fail('finally blocks are always executed');
         
     }
     
+    return (Perl::Koans::get_return_code());
 }
 
 
