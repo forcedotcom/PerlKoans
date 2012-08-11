@@ -112,7 +112,9 @@ sub get_return_code {
 
 sub determine_test_count {
     my $count = 0;
-    my $test_functions = qr/^\s*(is|is_deeply|like|ok|pass)\s*\(/i; 
+    my $test_functions = qr/^\s*(is|is_deeply|like|ok|pass)\s*\(/i;
+    
+    return $Perl::Koans::TEST_COUNT if defined $Perl::Koans::TEST_COUNT;
     
 	my @files = grep { $_ =~ /about_.*\.pl/ } values %INC;
 	push @files, ($#files == -1 ? $0 : 'road_to_illumination.pl');
