@@ -66,8 +66,8 @@ sub about_eval {
         4 / 0;
     };
     
-    is ($results, undef, 'eval returns undef if fatal error hit');
-    like ($@,     qr/division/, '$@ is populated with the fatal error message');
+    is ($results, __, 'eval returns undef if fatal error hit');
+    like ($@,     qr/__/, '$@ is populated with the fatal error message');
     
     # ht to markw
     my $error = eval {
