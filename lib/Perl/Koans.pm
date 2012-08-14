@@ -32,7 +32,7 @@ package Perl::Koans;
 use strict;
 use warnings;
 
-use Test::More import => ['!like', '!is', '!ok', '!fail', '!pass', '!is_deeply'];
+use Test::More import => [ '!fail', '!is', '!is_deeply', '!isnt', '!like', '!ok', '!pass'];
 use base 'Test::Builder::Module';
 
 our $CLASS = __PACKAGE__; # this probably doesn't need to be our..
@@ -43,7 +43,7 @@ $tb->level(2);  # this sets the caller() level so we get the failure from about_
 
 require Exporter;
 our @ISA = qw(Exporter);
-our @EXPORT = qw(is is_deeply like ok fail pass bail get_return_code print_illumination);
+our @EXPORT = qw(is isnt is_deeply like ok fail pass bail get_return_code print_illumination);
 our @EXPORT_OK = qw(display_progress);
 
 sub is {
@@ -54,6 +54,11 @@ sub is {
 sub is_deeply {
     my ($got, $expected, $name) = @_;
     Test::More::is_deeply($got, $expected, $name) or bail(get_return_code());
+}
+
+sub isnt {
+    my ($got, $expected, $name) = @_;
+    Test::More::isnt($got, $expected, $name) or bail(get_return_code());
 }
 
 sub like {
@@ -76,6 +81,7 @@ sub pass {
     my $name = shift;
     Test::More::pass($name);
 }
+
 
 sub bail {
     # bail($e) - exits the road
