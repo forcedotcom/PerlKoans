@@ -37,6 +37,9 @@ use Perl::Koans;
 ################
 # your code goes below this line
 
+my $true  = 1; 
+my $false = 0; 
+
 sub about_true {
     # about_true() -- true is any value except 0 and undef
     my @foo = (1,2,3);
@@ -44,6 +47,11 @@ sub about_true {
     ok ('', 'a positive integer is true');
     ok ('', 'a negative integer is true');
     ok ('', 'an array in scalar context is true'); # see about_context.pl for more information
+    
+    if ($true) {
+        ok (0, '0 is not true');
+        ok (undef, 'undef is not true');
+    }
     
     return (Perl::Koans::get_return_code()); 
 }
@@ -56,7 +64,7 @@ sub about_false {
     } else {
         ok (! __, 'undef and 0 are both false');
     }
-    
+        
     return (Perl::Koans::get_return_code()); 
 }
 
