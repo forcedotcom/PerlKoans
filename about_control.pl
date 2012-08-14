@@ -115,10 +115,6 @@ sub about_if {
         fail('don\'t go here');
     }
     
-    # TODO and more complex shortcircuiting examples
-    my $true  = 1;
-    my $false = 0;
-
     return (Perl::Koans::get_return_code()); 
 }
 
