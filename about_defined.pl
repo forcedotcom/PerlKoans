@@ -41,9 +41,22 @@ sub about_defined {
     # about_defined() -- defined is any value except undef
     my @foo = (1, -2 , 0);
     
-    is (defined $foo[__], 1, 'a positive integer is defined');
-    is (defined $foo[__], 1, 'a negative integer is defined');
-    is (defined $foo[__], 1, 'even 0 is defined');
+    is (defined $foo[0], 0, 'a positive integer is defined');
+    is (defined $foo[1], 0, 'a negative integer is defined');
+    is (defined $foo[2], 0, 'even 0 is defined');
+    
+    my $str;
+    
+    is (defined $str, __, 'declared variables initialize to undef');
+    
+    my @bar;
+    
+    is (defined @bar,  __, 'declared variables initialize to undef -- part 2');
+    is (defined $#bar, __, 'declared variables initialize to undef -- part 3');
+    
+    @bar = (27, 42, undef);
+    is (defined $bar[__],   __, '27 and 42 are defined');
+    is (! defined $bar[__], __, 'undef is not defined');
     
     return (Perl::Koans::get_return_code()); 
 }
@@ -61,6 +74,24 @@ sub about_undef {
     return (Perl::Koans::get_return_code()); 
 }
 
+sub about_exists {
+    # about_exists() -- similar to defined(), but exists() reports whether a particular hash key is present
+    # not making mention of exists ability to look at arrays, because it is deprecated/not that useful
+    my %hash = (
+        foo => 'bar',
+    );
+    
+    $hash{fizz} = 'bang';
+    
+    is (exists $hash{key}, 1, 'an empty string is returned when the key doesn\'t exist');
+    
+    $hash{key} = 'board';
+    
+    is (exists $hash{key}, '', '1 is returned when the key exists');
+    
+    return (Perl::Koans::get_return_code());
+}
+
 # your code goes above this line
 ################
 
@@ -75,6 +106,7 @@ sub run {
     my $results = 0;
     $results += about_defined();
     $results += about_undef();
+    $results += about_exists();
     
     return ($results) ? bail($results) : $results;
 }
