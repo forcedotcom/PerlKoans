@@ -70,13 +70,12 @@ sub about_stat {
     
     # create a file so we can do something
     my $filename = 'test.txt';
-    
-    open (my $fh, '>', $filename); # more information in about_io.pl
+    open (my $fh, '>', $filename) or die sprintf('DIE:: unable to open [%s] for writing: %s', $filename, $!);
     print $fh "this is just a test\n";
     close ($fh);
     
     my @stat = stat($filename);
-    is ($stat[4],  __, "the 4th index of stat is UID of file owner"); # unless they know their UID/GID, expect them to rely on the test failures
+    is ($stat[4],  __, "the 4th index of stat is UID of file owner");
     is ($stat[5],  __, "the 5th index of stat is GID of file owner");
     is (__,        21, "the 7th index of stat is file size");
     is ($stat[8],  __, "the 8th index of stat is last access time since epoch");
