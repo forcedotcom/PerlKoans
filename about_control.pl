@@ -67,7 +67,6 @@ sub about_if {
     
     # chaining comparisons, support shortcircuiting
 
-    
     my $foo = 10;
     my $bar = 5;
     
@@ -104,7 +103,10 @@ sub about_if {
         fail('chaining');
     }
     
-    # TODO need to add some better comments to explain intent
+    # Perl uses 'short circuiting' to run as few tests as possible in a compound if statement
+    # short circuiting occurs:
+    #  if 'and' or '&&', any failed test
+    #  if 'or' or '||', any successful test
     if ($fizzy{__} == 1 and $baz[2] == 2) {
         fail('short circuiting on and');
     }
@@ -161,7 +163,6 @@ sub about_unless {
         pass($testname);
     }
     
-    # don't do this in your production code
     unless ($true > $false) {
         fail($testname);
     } else {
