@@ -34,11 +34,13 @@ use warnings;
 use lib './lib';
 use Perl::Koans;
 
+our $TEST = 1;
+
 ################
 # your code goes below this line
 
 sub about_scope {
-    # about_scope() -- not sure how to better break this up
+    # about_scope()
     
     my $foo = 100;
     my $bar = 200;
@@ -67,10 +69,25 @@ sub about_scope {
     }
     
     is ($baz, __, 'use the most closely scoped variable -- part 8');
-    
+        
     return (Perl::Koans::get_return_code()); 
 }
 
+sub about_local {
+    # about_local() - allows you to modify variables for the current block
+    
+    is ($TEST, __, 'unmodified package variable -- part 1');
+    
+    {   
+        local $TEST = 100;
+        
+        is ($TEST, __, 'locally modified package variable');
+    }
+    
+    is ($TEST, __, 'unmodified package variable -- part 2');
+    
+    return (Perl::Koans::get_return_code());
+}
 
 
 # your code goes above this line
@@ -85,6 +102,7 @@ sub run {
     # run() -- runs all functions in this module
     my $results = 0;
     $results += about_scope();
+    $results += about_local();
     
     ## record results somewhere in Perl::Koans namespace
     return ($results) ? bail($results) : $results;
