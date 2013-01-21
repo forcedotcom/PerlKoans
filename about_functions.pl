@@ -31,7 +31,7 @@
 package Perl::Koans::Functions;
 use warnings;
 
-use Cwd; # TODO should we make a note about this?
+use Cwd;
 
 use lib './lib';
 use Perl::Koans;
@@ -87,12 +87,11 @@ sub about_numeric_functions {
     is (sqrt(64),          __, 'sqrt() returns the square root of a number'); # more in about_math.pl
     
     is (hex('0xFF'),       __, 'hex() returns the decimal value of a hex number'); # this always trips people up, if you want to turn a decimal into a hex, use printf/sprintf/unpack    
-    is (sprintf('%x', __), __, 'sprintf() can turn decimal numbers into hex numbers'); # TODO this hint is crap, and we just covered %x in sprintf, but i still feel like we need this
     is (int(100.50),       __, 'int() returns an integer');
-    
-    is (oct(100),          __, 'oct(octal)  returns the corresponding value');
-    is (oct(0xFF),         __, 'oct(hex)    returns the corresponding value');
-    is (oct(0b11011),      __, 'oct(binary) returns the corresponding value');
+	
+    is (oct(100),     __, 'oct(octal)  returns the corresponding value');
+    is (oct(0xFF),    __, 'oct(hex)    returns the corresponding value');
+    is (oct(0b11011), __, 'oct(binary) returns the corresponding value');
     
     # less-commonly used numeric functions
     my ($y, $x) = (5, 20);
@@ -111,9 +110,24 @@ sub about_numeric_functions {
     is (int(rand(100)) < 100,           __, 'int() often wraps rand() to get whole numbers');
     isnt ($colors[int(rand($#colors))], __, 'putting it all together'); # TODO write a better hint here, but i mean for this to be complex
     
-	# TODO  write some tests here
-    # can't mention rand() without srand() -- that's seed rand, not secure rand: http://perldoc.perl.org/functions/srand.html
-    
+	# srand() is seed rand, not secure rand: http://perldoc.perl.org/functions/srand.html
+    my $known_seed = 100;
+	my $rando_seed = rand(1000);
+	
+	my ($first, $second, $third);
+	
+	srand($known_seed);
+	$first = rand();
+	
+	srand($rando_seed);
+	$second = rand();
+	
+	srand($known_seed);
+	$third = rand();
+	
+	is   ($first, __, 'when reusing a seed, rand() is predictable');
+	isnt ($first, __, 'when using a new seed, rand() is ~unpredicatable');
+	
     return (Perl::Koans::get_return_code()); 
 
 }
@@ -185,7 +199,7 @@ sub about_file_functions {
     }
     
     # mkdir, opendir, rmdir
-    my $new_dir = sprintf('/tmp/fizzbang.%s', $$); # attempting a unique directory, if you're on Windows, please update to C:\Temp or something similar
+    my $new_dir = ($^O =~ /MSWin/i) ? sprintf('C:\Windows\Temp\fizzbang.%s', $$) : sprintf('/tmp/fizzbang.%s', $$); 
     
     if (-d $new_dir) {
         die "DIE:: a testing directory, [$new_dir], appears to already exist on your system";
@@ -199,7 +213,8 @@ sub about_file_functions {
     my $new_filename   = printf('%s/xyzzy.txt', $new_dir);
     my $rename_results = rename($filename, $new_filename);
     
-    is ($rename_results,  __, 'rename() is akin to move'); # TODO need to mention the windows weirdness re: cross drive renames?
+	warn 'NOTE:: you cannot use rename() across drives on Windows' if $^O =~ /MSWin/i;
+    is ($rename_results,  __, 'rename() is akin to move');
     is (-f $filename,     __, 'rename() is akin to move -- part 2');
     is (-f $new_filename, __, 'rename() is akin to move -- part 3');    
     
@@ -231,7 +246,7 @@ sub about_file_functions {
         my $link = '/tmp/test.lnk'; 
         my $link_results = link($0, $link);
         
-        is (-f $link, __, 'link(src, dst) creates a hard link from src to dst'); # TODO potential issue here: when trying this on my wsl, i get:  'Invalid cross-device link', despite the fact we aren't doing a cross-device link
+        is (-f $link, __, 'link(src, dst) creates a hard link from src to dst'); # TODO potential issue here: when trying this on my wsl, i get:  'Invalid cross-device link', could be related to the software raid?
         
         my $sym_link = '/tmp/test_sym.lnk';
         my $sym_link_results = symlink($0, $sym_link);
@@ -243,7 +258,7 @@ sub about_file_functions {
         
         # similar to stat(), covered in about_files.pl, lstat() gives information about the symbolic link -- not the file it points to
         my @lstat = lstat($sym_link);
-        is ($stat[4],  __, "the 4th index of stat is UID of file owner"); # unless they know their UID/GID, expect them to rely on the test failures
+        is ($stat[4],  __, "the 4th index of stat is UID of file owner");
         is ($stat[5],  __, "the 5th index of stat is GID of file owner");
         
         $unlink_results = unlink($link, $sym_link);
