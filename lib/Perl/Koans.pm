@@ -43,8 +43,10 @@ $tb->level(2);  # this sets the caller() level so we get the failure from about_
 
 require Exporter;
 our @ISA = qw(Exporter);
-our @EXPORT = qw(is isnt is_deeply like ok fail pass bail get_return_code print_illumination);
+our @EXPORT = qw(is isnt is_deeply like ok fail pass bail get_return_code print_illumination WINDOWS);
 our @EXPORT_OK = qw(display_progress);
+
+our $WINDOWS = ($^O =~ /win/) ? 1 : 0;
 
 sub is {
     my ($got, $expected, $name) = @_;
