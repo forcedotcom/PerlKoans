@@ -46,8 +46,8 @@ sub about_errors {
     
     $results = open(my $fh, '>', '/etc/passwd');
     
-    is ($results, __, 'empty strings are returned for failed operations'); 
-    like ($!,     qr/__/, '$! is populated with the error message for failed operations'); 
+    is   ($results, __, 'empty strings are returned for failed operations'); 
+    like ($!,   qr/__/, '$! is populated with the error message for failed operations'); 
     
     mkdir('/root/foo') or do {
         # no one is running the koans as root.. right?
@@ -66,8 +66,8 @@ sub about_eval {
         4 / 0;
     };
     
-    is ($results, __, 'eval returns undef if fatal error hit');
-    like ($@,     qr/__/, '$@ is populated with the fatal error message');
+    is   ($results, __, 'eval returns undef if fatal error hit');
+    like ($@,   qr/__/, '$@ is populated with the fatal error message');
     
     # ht to markw
     my $error = eval {
