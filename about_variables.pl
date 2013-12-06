@@ -45,7 +45,7 @@ use Perl::Koans;
 sub about_scalar {
     # about_scalar() - assignment / interpolation 
     # 
-    my $foo = __;        
+    my $foo = __;
     is ($foo, 'bar', 'assign a string to a scalar');
     
     my $bar = __;
@@ -54,10 +54,10 @@ sub about_scalar {
     my $baz = __;
     is ($baz, "isn't", 'assign a string to a scalar, embedding a single quote');
     
-    my $xyzzy = ___;
+    my $xyzzy = __;
     is ($xyzzy, 'xyzzy is not bar', 'interpolate a variable into a string'); # no cheating!
     
-    fail('expand interpolation coverage to include q// qq// qw//');
+    #fail('expand interpolation coverage to include q// qq// qw//');
     
     return (Perl::Koans::get_return_code()); 
 }
@@ -67,6 +67,7 @@ sub about_array {
     
     my @num = (1, 2, 3, 4);
     my @chr = ('a', 'b', 'c', 'd');
+    my @mix = (@num, @chr);
     
     # to access array elements, use [ ]
     is ($num[0], __, 'array indexes are 0 based');
@@ -84,12 +85,11 @@ sub about_array {
     is ($#foo,       __, 'on an undefined array, index count is -1');
     is (scalar @foo, __, 'on an undefined array, scalar context is 0');
     
-    ## references are created by placing a \ in front of an array or hash name
-    my @mixed    = (@num, @chr);
+    ## references are created by placing a \ in front of an array or hash name    
     my $chr_ref  = \@chr;
     my @separate = (\@num, $chr_ref);
     
-    is ($#mixed,          __, 'there are 8 elements in the array'); # TODO need a better hint here
+    is ($#mix,          __, 'there are 8 elements in the array'); # TODO need a better hint here
     is (scalar @separate, __, 'the index count is 2'); # TODO need a better hint here
     is ($chr_ref->[0],    __, 'array reference indexes are also 0 based');
     is (__, ['a', 'b', 'c', 'd'] , 'arrays references can be defined directly with brackets');
