@@ -79,11 +79,11 @@ sub about_array {
     push (@chr, 'e');
     is (__, 'e', 'push pushes elements to the end of an array');
     
-    is ($#mix,       __, '$#array gives 0 based count, useful for loops');
-    is (scalar @mix, __, 'in a scalar context, we get the human-friendly count');
-    
     is ($#foo,       __, 'on an undefined array, index count is -1');
     is (scalar @foo, __, 'on an undefined array, scalar context is 0');
+    
+    is ($#mix,       __, '$#array gives 0 based count, useful for loops');
+    is (scalar @mix, __, 'in a scalar context, we get the human-friendly count');
     
     ## references are created by placing a \ in front of an array or hash name    
     my $chr_ref  = \@chr;
