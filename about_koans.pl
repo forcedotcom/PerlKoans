@@ -41,17 +41,17 @@ sub about_koans {
     # about_koans() -- introductory koan
     
     # more about truth in about_truth.pl
-    is (1, 2, '1 is equal to itself'); 
+    is (1, 1, '1 is equal to itself'); 
     
     # more about quoting styles in about_variables.pl
-    is ('foo', 'bar', 'foo is equal to itself'); 
-    is ("xyzzy", "baz", "xyzzy is equal to itself");
+    is ('foo', 'foo', 'foo is equal to itself'); 
+    is ("xyzzy", "xyzzy", "xyzzy is equal to itself");
     
     # more about regular expressions in about_re.pl
-    like ('Perl is good', qr/great/, 'regular expressions match partial expressions'); 
+    like ('Perl is good', qr/good/, 'regular expressions match partial expressions'); 
     
-	ok (0, '0 and undef are false, everything else is true');
-	ok (undef, '0 and undef are false, everything else is true -- part 2');
+	ok (1, '0 and undef are false, everything else is true');
+	ok ('foo', '0 and undef are false, everything else is true -- part 2');
 	
 	return (Perl::Koans::get_return_code()); 
 }
