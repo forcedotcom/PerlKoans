@@ -44,21 +44,22 @@ sub about_time {
     sleep 1;
     my $after = time();
     
-    is ($before > $after, 1, "time() returns the number of seconds since the epoch, 00:00 January 1, 1970 GMT");
+    is ($before > $after, '', "time() returns the number of seconds since the epoch, 00:00 January 1, 1970 GMT");
     
     # more information in about_context.pl
     my @lt_array  = localtime(); # definition of elements: http://perldoc.perl.org/functions/localtime.html
     my $lt_scalar = localtime();
     
-    is   ($lt_array[5], __ - 1900, "index 5 is the current year less 1900"); # TODO figure out how we can test the other elements in a dynamic, but not scary way
-    like ($lt_scalar, qr/__/, "in scalar context, localtime() gives us a human readable timestamp"); # TODO is this hint clear/vague enough? i want you to match anything you know will be in the timestamp: day of week, month, day of month    
+    is   ($lt_array[5], 2013 - 1900, "index 5 is the current year less 1900"); # TODO figure out how we can test the other elements in a dynamic, but not scary way
+    # NOTE this won't always be the correct solution..
+    like ($lt_scalar, qr/2013/, "in scalar context, localtime() gives us a human readable timestamp"); # TODO is this hint clear/vague enough? i want you to match anything you know will be in the timestamp: day of week, month, day of month    
     
     # gmtime is just like localtime(), except it returns values localized to Greenwich
     my @gmt_array  = gmtime();
     my $gmt_scalar = gmtime();
     
-    is ($#lt_array, __, "gmttime() has the same element count as localtime()");
-    isnt (__, \@gmt_array, "gmttime() has different contents than localtime()"); # TODO better hint
+    is ($#lt_array, $#gmt_array, "gmttime() has the same element count as localtime()");
+    isnt (\@lt_array, \@gmt_array, "gmttime() has different contents than localtime()"); # TODO better hint
     
     ## TODO: add a gmttime($lt_scalar) and localtime($gmt_scalar) type test to show how it can be used as a function as well
     
@@ -66,7 +67,7 @@ sub about_time {
     sleep 1; # TODO yuck. should we just reuse $lt_scalar?
     my $finish = localtime();
     
-    is ($finish - $start, __, "localtime() is often used to keep track of how long an operation takes"); # TODO yeah, this is not a good hint. its true, but you should be using time() instead
+    is ($finish - $start, 0, "localtime() is often used to keep track of how long an operation takes"); # TODO yeah, this is not a good hint. its true, but you should be using time() instead
     
     
     return (Perl::Koans::get_return_code());
@@ -83,7 +84,7 @@ sub about_time_hi_res {
     my $start  = Time::HiRes::gettimeofday();
     my $finish = Time::HiRes::gettimeofday();
     
-    is ($finish - $start > __, 1, "Time::HiRes::gettimeofday() gives you microsecond precision");
+    is ($finish - $start > 1, '', "Time::HiRes::gettimeofday() gives you microsecond precision");
     
     return (Perl::Koans::get_return_code());
 }

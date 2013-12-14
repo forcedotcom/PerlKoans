@@ -48,31 +48,33 @@ sub about_scalar_functions {
     my $line = "this is a test\n";
     my $str  = 'so is this';
     
-    is (chomp($line), __, 'chomp() removes the last character of a string if it is \n');
-    is (chop($str),   __, 'chop() removes the last character of a string');
+	# TODO this is not what i wanted..	
+    is (chomp($line), 1, 'chomp() removes the last character of a string if it is \n');
+    is (chop($str),   's', 'chop() removes the last character of a string');
     
     my $character = 'G';
     
-    is (ord($character), __, 'ord() returns the numeric value of a single character');
-    is (chr(__), $character, 'chr() returns the character value of a number in ASCII/Unicode');
+    is (ord($character), 71, 'ord() returns the numeric value of a single character');
+    is (chr(71), $character, 'chr() returns the character value of a number in ASCII/Unicode');
 
-    is (uc($line),      __, 'uc() returns expr with all a-z changed to A-Z'); 
-    is (ucfirst($line), __, 'ucfirst() returns expr with first character a-z changed to A-Z');
+    is (uc($line),      'THIS IS A TEST', 'uc() returns expr with all a-z changed to A-Z'); 
+    is (ucfirst($line), 'This is a test', 'ucfirst() returns expr with first character a-z changed to A-Z');
     
     my $greatrunes = 'SORRY FOR THIS';
-    is (lc($greatrunes),      __, 'lc() returns expr with all A-Z changed to a-z'); 
-    is (lcfirst($greatrunes), __, 'lcfirst() does what you expect'); 
+    is (lc($greatrunes),      'sorry for this', 'lc() returns expr with all A-Z changed to a-z'); 
+    is (lcfirst($greatrunes), 'sORRY FOR THIS', 'lcfirst() does what you expect'); 
     
-    is (length($str),       __, 'length() returns the number of characters in a string');
-    is (index($str, 'is'),  __, 'index(string, substring) returns the initial first index for substring in string'); 
-    is (rindex($str, 'is'), __, 'rindex(string, subtrstring) returns the final first index for substring in string');
+    is (length($str),       9, 'length() returns the number of characters in a string');
+    is (index($str, 'is'),  3, 'index(string, substring) returns the initial first index for substring in string'); 
+    # TODO this is stupid, should be something more interesting
+	is (rindex($str, 'is'), 3, 'rindex(string, subtrstring) returns the final first index for substring in string');
     
     # substring has a couple call signatures
-    is (substr($str, 6),    __, 'substr(string, offset) returns string after offset');
-    is (substr($str, 3, 2), __, 'substr(string, offset, length) returns substring from string after offset of length');
+    is (substr($str, 6),    'thi', 'substr(string, offset) returns string after offset');
+    is (substr($str, 3, 2), 'is', 'substr(string, offset, length) returns substring from string after offset of length');
     
     my $new_line = substr($line, 10, 4, uc('sparta!'));
-    is ($new_line, __, 'substr(string, offset, length, replacement) - retuns modified string substituting the characters at offset+length with replacement');
+    is ($new_line, 'this is sparta!', 'substr(string, offset, length, replacement) - retuns modified string substituting the characters at offset+length with replacement');
     
     is (reverse($str), __, 'reverse() in a scalar context reverse the order of the characters in the string');
     
