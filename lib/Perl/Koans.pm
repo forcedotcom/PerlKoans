@@ -41,6 +41,8 @@ our $tb    = $CLASS->builder;
 $tb->no_plan();  
 $tb->level(2);  # this sets the caller() level so we get the failure from about_*, not __PACKAGE__
 
+our $DIRECTORY = $1 if Cwd::abs_path(__FILE__) =~ /(.*)\//;
+
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(is isnt is_deeply like ok fail pass unlike bail get_return_code print_illumination WINDOWS);
@@ -129,11 +131,12 @@ sub determine_test_count {
     
     return $Perl::Koans::TEST_COUNT if defined $Perl::Koans::TEST_COUNT;
     
-	my @files = grep { $_ =~ /about_.*\.pl/ } values %INC;
-	push @files, ($#files == -1 ? $0 : 'road_to_illumination.pl');
+    my @files = grep { $_ =~ /about_.*\.pl/ } values %INC;
+    push @files, ($#files == -1 ? $0 : 'road_to_illumination.pl');
 
     for my $file (@files) {
-        open (my $fh, '<', $file) or next;
+      my $ffp = sprintf('%s/../../%s', $Perl::Koans::DIRECTORY, $file);
+      open (my $fh, '<', $ffp or next;
         
         while (<$fh>) {
             # this is minorly incorrect, only some of our hardcoded fail/pass scenarios are pairs
