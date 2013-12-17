@@ -32,6 +32,7 @@ package Perl::Koans;
 use strict;
 use warnings;
 
+use Cwd;
 use Test::More import => [ '!fail', '!is', '!is_deeply', '!isnt', '!like', '!ok', '!pass', '!unlike'];
 use base 'Test::Builder::Module';
 
@@ -136,7 +137,7 @@ sub determine_test_count {
 
     for my $file (@files) {
       my $ffp = sprintf('%s/../../%s', $Perl::Koans::DIRECTORY, $file);
-      open (my $fh, '<', $ffp or next;
+      open (my $fh, '<', $ffp) or next;
         
         while (<$fh>) {
             # this is minorly incorrect, only some of our hardcoded fail/pass scenarios are pairs
