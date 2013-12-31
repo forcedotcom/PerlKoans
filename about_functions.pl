@@ -74,9 +74,11 @@ sub about_scalar_functions {
     is (substr($str, 3, 2), 'is', 'substr(string, offset, length) returns substring from string after offset of length');
     
     my $new_line = substr($line, 10, 4, uc('sparta!'));
-    is ($new_line, 'this is sparta!', 'substr(string, offset, length, replacement) - retuns modified string substituting the characters at offset+length with replacement');
+	# WRONG
+    is ($new_line, 'test', 'substr(string, offset, length, replacement) - retuns modified string substituting the characters at offset+length with replacement');
     
-    is (reverse($str), __, 'reverse() in a scalar context reverse the order of the characters in the string');
+	# WRONG
+    is (reverse($str), 'so is thi', 'reverse() in a scalar context reverse the order of the characters in the string');
     
     return (Perl::Koans::get_return_code()); 
 }
@@ -85,32 +87,34 @@ sub about_numeric_functions {
     #  about_numeric_functions()
     
     # commonly used numeric functions
-    is (abs(-10),          __, 'abs() returns the absolute value of a number');
-    is (sqrt(64),          __, 'sqrt() returns the square root of a number'); # more in about_math.pl
+    is (abs(-10),          10, 'abs() returns the absolute value of a number');
+    is (sqrt(64),          8, 'sqrt() returns the square root of a number'); # more in about_math.pl
     
-    is (hex('0xFF'),       __, 'hex() returns the decimal value of a hex number'); # this always trips people up, if you want to turn a decimal into a hex, use printf/sprintf/unpack    
-    is (int(100.50),       __, 'int() returns an integer');
+    is (hex('0xFF'),       255, 'hex() returns the decimal value of a hex number'); # this always trips people up, if you want to turn a decimal into a hex, use printf/sprintf/unpack    
+    is (int(100.50),       100, 'int() returns an integer');
 	
-    is (oct(100),     __, 'oct(octal)  returns the corresponding value');
-    is (oct(0xFF),    __, 'oct(hex)    returns the corresponding value');
-    is (oct(0b11011), __, 'oct(binary) returns the corresponding value');
+	# TODO need to recommend that user has a repl going.. this is silly otherwise
+    is (oct(100),     64, 'oct(octal)  returns the corresponding value');
+    is (oct(0xFF),    173, 'oct(hex)    returns the corresponding value');
+    is (oct(0b11011), 23, 'oct(binary) returns the corresponding value');
     
     # less-commonly used numeric functions
     my ($y, $x) = (5, 20);
     my $number  = 10;
     
-    is (atan2($y, $x), __, 'atan2() returns the arctangent of Y/X');
-    is (cos($number),  __, 'cos() returns the cosine of expr (radians)');
-    is (sin($number),  __, 'sin() returns the sine of expr (radians)');
-    is (exp($number),  __, 'exp() returns e to the power of expr');
-    is (log($number),  __, 'log() returns the natural logarithm of expr');
+	# TODO this is a little arbitrary.. make it mean something
+    is (atan2($y, $x), atan2($y, $x), 'atan2() returns the arctangent of Y/X');
+    is (cos($number),  cos($number), 'cos() returns the cosine of expr (radians)');
+    is (sin($number),  sin($number), 'sin() returns the sine of expr (radians)');
+    is (exp($number),  exp($number), 'exp() returns e to the power of expr');
+    is (log($number),  log($number), 'log() returns the natural logarithm of expr');
     
     # random numbers
     my @colors = ('red', 'green', 'blue');
     
-    is (rand(__) < 100,                  1, 'rand(max) returns a random fractional number less than max');
-    is (int(rand(100)) < 100,           __, 'int() often wraps rand() to get whole numbers');
-    isnt ($colors[int(rand($#colors))], __, 'putting it all together'); # TODO write a better hint here, but i mean for this to be complex
+    is (rand(50) < 100,                  1, 'rand(max) returns a random fractional number less than max');
+    is (int(rand(100)) < 100,           1, 'int() often wraps rand() to get whole numbers');
+    isnt ($colors[int(rand($#colors))], 'purple', 'putting it all together'); # TODO write a better hint here, but i mean for this to be complex
     
 	# srand() is seed rand, not secure rand: http://perldoc.perl.org/functions/srand.html
     my $known_seed = 100;
@@ -127,8 +131,9 @@ sub about_numeric_functions {
 	srand($known_seed);
 	$third = rand();
 	
-	is   ($first, __, 'when reusing a seed, rand() is predictable');
-	isnt ($first, __, 'when using a new seed, rand() is ~unpredicatable');
+	# TODO make it more clear users are supposed to use variables here
+	is   ($first, $third, 'when reusing a seed, rand() is predictable');
+	isnt ($first, $second, 'when using a new seed, rand() is ~unpredicatable');
 	
     return (Perl::Koans::get_return_code()); 
 
@@ -148,18 +153,21 @@ sub about_file_functions {
     
     my $cwd  = Cwd::getcwd(); 
     
-    is ($cwd, __, 'Cwd::getcwd() returns the current working directory');
+	# TODO make this solutions branch a permanent fixture, come up with list of alternative solutions: $ENV{CWD}, __FILE__ derivation, `cwd`.chomp, etc
+    is ($cwd, $ENV{PWD}, 'Cwd::getcwd() returns the current working directory');
     
     my @files = glob('*');
     
-    is ($#files,   __, 'glob() returns a list of files/directories matching expr');
-    is ($files[0], __, 'glob() returns a list of files/directories matching expr');
+    is ($#files,   24, 'glob() returns a list of files/directories matching expr');
+    is ($files[0], 'about_control.pl', 'glob() returns a list of files/directories matching expr');
     
     my $chdir_result = chdir($dirs[0]);
     
-    is ($chdir_result,   __, 'chdir() changes the current working directory');
-    is (Cwd::getcwd(), $cwd, 'chdir() changes the current working directory -- part 2'); 
+    is ($chdir_result,   1, 'chdir() changes the current working directory');
+    is (Cwd::getcwd(), '/private/tmp', 'chdir() changes the current working directory -- part 2'); 
     
+	# TODO should we chdir() back to original directory? <-- that would have been easier than 566346b
+	
     my $filename = 'this_is_just_a_test.txt';
     
     open (my $fh, '>', $filename);
@@ -176,17 +184,22 @@ sub about_file_functions {
         my $owner_id    = $stat[4];
         my $owner_name  = (getpwuid($owner_id))[0]; 
         
-        is ($permissions, __, 'stat() can be used to get file permissions');
-        is ($owner_name,  __, 'stat() can be be used to get owner information');
+		# WRONG, oh so wrong
+        is ($permissions, 420, 'stat() can be used to get file permissions');
+        is ($owner_name, 'choran-kates', 'stat() can be be used to get owner information');
         
+		# TODO this is silly.. we check the perms above, then change them here.. what is the flow supposed to look like here?
+		# TODO also.. why are we chmodding to a non-standard perm? probably to trigger an error, which isn't happening..
         my $chmod_result = chmod('09999', $filename);
         
-        is   ($chmod_result, __, 'chmod() returns 1 for a successful change'); 
-        like (__,            $!, 'chmod() populates $! on error');
+
+        is   ($chmod_result, 1, 'chmod() returns 1 for a successful change'); 
+        #like (__,            $!, 'chmod() populates $! on error');
         
-        my $new_uid = '';
-        my $new_gid = '';
+        my $new_uid = 454177323;
+        my $new_gid = 1274209134;
         
+		# TODO what are we expecting here? ugh this is insane <-- particularly when these pass with the '__' value provided by default
         isnt ($new_uid, __, 'administrative - please fill in a new valid UID, or -1 to leave unchanged');
         isnt ($new_gid, __, 'administrative - please fill in a new valid GID, or -1 to leave unchanged');
         
@@ -196,8 +209,8 @@ sub about_file_functions {
         $permissions = $stat[2] & 07777;
         $owner_name  = (getpwuid(stat[4]))[0];
         
-        is ($permissions, __, 'stat() can also be used to get file permissions -- part 2');
-        is ($owner_name,  __, 'stat() can also be used to get owner information -- part 2');
+        is ($permissions, 783, 'stat() can also be used to get file permissions -- part 2');
+        is ($owner_name,  'root', 'stat() can also be used to get owner information -- part 2');
     }
     
     # mkdir, opendir, rmdir
@@ -209,16 +222,16 @@ sub about_file_functions {
     
     my $mkdir_results = mkdir($new_dir);
     
-    is ($mkdir_results, __, 'mkdir() does the same thing as its shell companion');
-    is (-d $new_dir,    __, 'mkdir() does the same thing as its shell companion -- part 2');
+    is ($mkdir_results, 1, 'mkdir() does the same thing as its shell companion');
+    is (-d $new_dir,    1, 'mkdir() does the same thing as its shell companion -- part 2');
     
     my $new_filename   = printf('%s/xyzzy.txt', $new_dir);
     my $rename_results = rename($filename, $new_filename);
     
 	warn 'NOTE:: you cannot use rename() across drives on Windows' if $^O =~ /MSWin/i;
-    is ($rename_results,  __, 'rename() is akin to move');
-    is (-f $filename,     __, 'rename() is akin to move -- part 2');
-    is (-f $new_filename, __, 'rename() is akin to move -- part 3');    
+    is ($rename_results,  1, 'rename() is akin to move');
+    is (-f $filename,    undef, 'rename() is akin to move -- part 2');
+    is (-f $new_filename, 1, 'rename() is akin to move -- part 3');    
     
     # ok, back to the *dir
     opendir(my $dh, $new_dir);
@@ -233,38 +246,38 @@ sub about_file_functions {
     
     my $rmdir_results = rmdir($new_dir);
     
-    is ($rmdir_results, __, 'rmdir() will only remove empty directories');
-    is ($!,             __, 'rmdir() will only remove empty directories -- part 2');
+    is ($rmdir_results, 1, 'rmdir() will only remove empty directories');
+    is ($!,             'No such file or directory', 'rmdir() will only remove empty directories -- part 2');
     
     my $unlink_results = unlink($new_filename);
-    is ($unlink_results,  __, 'unlink() removes a list of files');
-    is (-f $new_filename, __, 'unlink() removes a list of files -- part 2');
+    is ($unlink_results,  1, 'unlink() removes a list of files');
+    is (-f $new_filename, undef, 'unlink() removes a list of files -- part 2');
     
     $rmdir_results = rmdir($new_dir);
-    is ($rmdir_results, __, 'rmdir() will only remove empty directories -- part 3');
+    is ($rmdir_results, 0, 'rmdir() will only remove empty directories -- part 3');
     
     if ($^O !~ /MSWin/i) {
         # links are weird on Windows
         my $link = '/tmp/test.lnk'; 
         my $link_results = link($0, $link);
         
-        is (-f $link, __, 'link(src, dst) creates a hard link from src to dst'); # TODO potential issue here: when trying this on my wsl, i get:  'Invalid cross-device link', could be related to the software raid?
+        is (-f $link, undef, 'link(src, dst) creates a hard link from src to dst'); # TODO potential issue here: when trying this on my wsl, i get:  'Invalid cross-device link', could be related to the software raid?
         
         my $sym_link = '/tmp/test_sym.lnk';
         my $sym_link_results = symlink($0, $sym_link);
         
-        is (-f $sym_link, __, 'symlink(src, dst) creates a symbolic link from src to dst');
+        is (-f $sym_link, undef, 'symlink(src, dst) creates a symbolic link from src to dst');
         
         my $read_link = readlink($sym_link);
-        is (-f $read_link, __, 'readlink(sym_link) returns the relative path to the file it is linked to');
+        is (-f $read_link, undef, 'readlink(sym_link) returns the relative path to the file it is linked to');
         
         # similar to stat(), covered in about_files.pl, lstat() gives information about the symbolic link -- not the file it points to
         my @lstat = lstat($sym_link);
-        is ($stat[4],  __, "the 4th index of stat is UID of file owner");
-        is ($stat[5],  __, "the 5th index of stat is GID of file owner");
+        is ($stat[4],  1274209134, "the 4th index of stat is UID of file owner");
+        is ($stat[5],  0, "the 5th index of stat is GID of file owner");
         
         $unlink_results = unlink($link, $sym_link);
-        is ($unlink_results, __, 'unlink(list) is not specific to links, acts on files');
+        is ($unlink_results, 1, 'unlink(list) is not specific to links, acts on files');
         
     }
     
