@@ -266,6 +266,7 @@ sub about_file_functions {
         
     }
     
+    chdir($cwd); # are you to good for your home?!
     return (Perl::Koans::get_return_code()); 
 }
 
