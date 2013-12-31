@@ -32,7 +32,9 @@ package Perl::Koans;
 use strict;
 use warnings;
 
-use Test::More import => [ '!fail', '!is', '!is_deeply', '!isnt', '!like', '!ok', '!pass'];
+use Cwd;
+
+use Test::More import => [ '!fail', '!is', '!is_deeply', '!isnt', '!like', '!ok', '!pass', '!unlike'];
 use base 'Test::Builder::Module';
 
 our $CLASS = __PACKAGE__; # this probably doesn't need to be our..
@@ -41,9 +43,11 @@ our $tb    = $CLASS->builder;
 $tb->no_plan();  
 $tb->level(2);  # this sets the caller() level so we get the failure from about_*, not __PACKAGE__
 
+our $DIRECTORY = $1 if Cwd::abs_path(__FILE__) =~ /(.*)\//;
+
 require Exporter;
 our @ISA = qw(Exporter);
-our @EXPORT = qw(is isnt is_deeply like ok fail pass bail get_return_code print_illumination WINDOWS);
+our @EXPORT = qw(is isnt is_deeply like ok fail pass unlike bail get_return_code print_illumination WINDOWS);
 our @EXPORT_OK = qw(display_progress);
 
 our $WINDOWS = ($^O =~ /win/) ? 1 : 0;
@@ -82,6 +86,11 @@ sub fail {
 sub pass {
     my $name = shift;
     Test::More::pass($name);
+}
+
+sub unlike {
+	my ($got, $expected, $name) = @_;
+	Test::More::unlike($got, $expected, $name) or bail(get_return_code());
 }
 
 
@@ -124,11 +133,12 @@ sub determine_test_count {
     
     return $Perl::Koans::TEST_COUNT if defined $Perl::Koans::TEST_COUNT;
     
-	my @files = grep { $_ =~ /about_.*\.pl/ } values %INC;
-	push @files, ($#files == -1 ? $0 : 'road_to_illumination.pl');
+    my @files = grep { $_ =~ /about_.*\.pl/ } values %INC;
+    push @files, ($#files == -1 ? $0 : 'road_to_illumination.pl');
 
     for my $file (@files) {
-        open (my $fh, '<', $file) or next;
+      my $ffp = sprintf('%s/../../%s', $Perl::Koans::DIRECTORY, $file);
+      open (my $fh, '<', $ffp) or next;
         
         while (<$fh>) {
             # this is minorly incorrect, only some of our hardcoded fail/pass scenarios are pairs

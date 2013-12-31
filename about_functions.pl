@@ -165,8 +165,6 @@ sub about_file_functions {
     
     is ($chdir_result,   1, 'chdir() changes the current working directory');
     is (Cwd::getcwd(), '/private/tmp', 'chdir() changes the current working directory -- part 2'); 
-    
-	# TODO should we chdir() back to original directory? <-- that would have been easier than 566346b
 	
     my $filename = 'this_is_just_a_test.txt';
     
@@ -281,6 +279,7 @@ sub about_file_functions {
         
     }
     
+	chdir($cwd);
     return (Perl::Koans::get_return_code()); 
 }
 
