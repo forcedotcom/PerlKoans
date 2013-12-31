@@ -81,7 +81,7 @@ sub about_stat {
     # TODO fix this, is being updated each run -- because we're overwriting the file every time
     #is ($stat[8],  1388511994, "the 8th index of stat is last access time since epoch");    
     #is ($stat[9],  1388512019, "the 9th index of stat is last modify time since epoch");
-    is ($stat[10], __, "the 10th index of stat is inode change time since epoch");
+    #is ($stat[10], 1388513366, "the 10th index of stat is inode change time since epoch");
     
     # whenever an operation can fail, you should provide some 'error handling', see about_exceptions.pl for more
     unlink($filename) if -f $filename; 
