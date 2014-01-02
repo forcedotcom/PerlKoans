@@ -45,30 +45,31 @@ sub about_scope {
     my $foo = 100;
     my $bar = 200;
     
-    is ($foo, __, 'use the most closely scoped variable -- part 1');
+    is ($foo, 100, 'use the most closely scoped variable -- part 1');
     {
         my $foo = 10;
         
-        is ($foo, __, 'use the most closely scoped variable -- part 2');
-        is ($bar, __, 'use the most closely scoped variable -- part 3');
+        is ($foo, 10, 'use the most closely scoped variable -- part 2');
+        is ($bar, 200, 'use the most closely scoped variable -- part 3');
         
     }
 
-    is ($foo, __, 'use the most closely scoped variable -- part 4');
+    is ($foo, 100, 'use the most closely scoped variable -- part 4');
     
     
     for (my $foo = 0; $foo < 10; $foo++) {
-        isnt($foo, __, 'use the most closely scoped variable -- part 5');
+        isnt($foo, 100, 'use the most closely scoped variable -- part 5');
     }
     
-    is ($foo, __, 'use the most closely scoped variable -- part 6');
+    is ($foo, 100, 'use the most closely scoped variable -- part 6');
     
     my $baz = 300;
     for ($baz = 0; $baz < 10; $baz++) {
-        isnt ($baz, __, 'use the most closely scoped variable -- part 7');
+        isnt ($baz, 300, 'use the most closely scoped variable -- part 7');
     }
     
-    is ($baz, __, 'use the most closely scoped variable -- part 8');
+    # might not be exactly what you're thinking.. maybe we throw a 'my' into this definition on line 67?
+    is ($baz, 10, 'use the most closely scoped variable -- part 8');
         
     return (Perl::Koans::get_return_code()); 
 }
@@ -76,15 +77,15 @@ sub about_scope {
 sub about_local {
     # about_local() - allows you to modify variables for the current block
     
-    is ($TEST, __, 'unmodified package variable -- part 1');
+    is ($TEST, 1, 'unmodified package variable -- part 1');
     
     {   
         local $TEST = 100;
         
-        is ($TEST, __, 'locally modified package variable');
+        is ($TEST, 100, 'locally modified package variable');
     }
     
-    is ($TEST, __, 'unmodified package variable -- part 2');
+    is ($TEST, 1, 'unmodified package variable -- part 2');
     
     return (Perl::Koans::get_return_code());
 }
