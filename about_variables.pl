@@ -99,7 +99,8 @@ sub about_array {
     
     my @unsorted = (5, 3, 1, 4, 2);
     my @sorted   = sort @unsorted;
-    is ([1, 2, 3, 4, 5], __, 'sort arrays'); # TODO need a better hint here
+    is_deeply([1, 2, 3, 4, 5], __, 'sort arrays - contents are the same');
+    isnt ([1, 2, 3, 4, 5], __, 'sort arrays - references are not the same');
     
     my @range = 0..10;
     is (\@range, __, '.. is the range operator, provides list of intermediate values');
