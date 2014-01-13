@@ -2,20 +2,20 @@
 =pod
     Copyright (c) 2012, Salesforce.com, Inc.
     All rights reserved.
-    
+
     Redistribution and use in source and binary forms, with or without modification,
     are permitted provided that the following conditions are met:
-    
+
     Redistributions of source code must retain the above copyright notice, this list
     of conditions and the following disclaimer. Redistributions in binary form must
     reproduce the above copyright notice, this list of conditions and the following
     disclaimer in the documentation and/or other materials provided with the
     distribution.
-    
+
     Neither the name of salesforce.com, inc. nor the names of its contributors may be
     used to endorse or promote products derived from this software without specific
     prior written permission.
-    
+
     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
     ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -39,21 +39,21 @@ use Perl::Koans;
 
 sub about_koans {
     # about_koans() -- introductory koan
-    
+
     # more about truth in about_truth.pl
-    is (1, 2, '1 is equal to itself'); 
-    
+    is (1, 2, '1 is equal to itself');
+
     # more about quoting styles in about_variables.pl
-    is ('foo', 'bar', 'foo is equal to itself'); 
+    is ('foo', 'bar', 'foo is equal to itself');
     is ("xyzzy", "baz", "xyzzy is equal to itself");
-    
+
     # more about regular expressions in about_re.pl
-    like ('Perl is good', qr/great/, 'regular expressions match partial expressions'); 
-    
-	ok (0, '0 and undef are false, everything else is true');
-	ok (undef, '0 and undef are false, everything else is true -- part 2');
-	
-	return (Perl::Koans::get_return_code()); 
+    like ('Perl is good', qr/great/, 'regular expressions match partial expressions');
+
+    ok (0, '0 and undef are false, everything else is true');
+    ok (undef, '0 and undef are false, everything else is true -- part 2');
+
+    return (Perl::Koans::get_return_code());
 }
 
 
@@ -68,9 +68,9 @@ unless (caller(0)) {
 sub run {
     # run() -- runs all functions in this module
     my $results = 0;
-    
+
     $results += about_koans();
-    
+
     return ($results) ? bail($results) : $results;
 }
 

@@ -38,7 +38,7 @@ use Perl::Koans qw(bail print_illumination);
 
 our $VERSION = 0.50 . '-dev';
 
-require 'about_koans.pl'; 
+require '01_about_koans.pl';
 require 'about_truth.pl';
 require 'about_defined.pl';
 require 'about_variables.pl';
