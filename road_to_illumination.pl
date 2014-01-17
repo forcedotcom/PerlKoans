@@ -43,7 +43,7 @@ BEGIN {
     # TODO parse params here..
     #   - if 0|1, toggle $solved
     #   - otherwise try to use that version of Perl
-    my $solved = 1; # ~boolean
+    my $solved = 0; # ~boolean
     my @scripts = ($solved) ? glob('*.pl') : glob('*.solved');
 
     for my $script (@scripts) {
@@ -52,33 +52,14 @@ BEGIN {
     }
 }
 
-#require '01_about_koans.pl';
-#require 'about_truth.pl';
-#require 'about_defined.pl';
-#require 'about_variables.pl';
-#require 'about_math.pl';
-#require 'about_time.pl';
-#require 'about_io.pl';
-#require 'about_functions.pl';
-#require 'about_files.pl'; 
-#require 'about_scope.pl';
-#require 'about_control.pl';
-#require 'about_loops.pl';
-#require 'about_sort.pl';
-#require 'about_re.pl';
-#require 'about_exceptions.pl';
-##require 'about_context.pl'; # wantarray and it's implications
-##require 'about_oo.pl'; # bless, packaging, our vs. my
-#require 'about_perlvars.pl'; 
-
-### below the line, not in rev1
-#require 'about_dice_project.pl'; # not ready yet.. next release -- and really, would rather not use the same example
-##require 'about_project2.pl';
-
-# not sure if these really fit the model, but they are useful
-##require 'about_lwp.pl';
-##require 'about_xml.pl'; # really  thinking about_xml_simple.pl
-##require 'about_file_find.pl'; # good real world example of callbacks and sub refs
+# TODO
+# 'about_context.pl'; # wantarray and it's implications
+# 'about_oo.pl'; # bless, packaging, our vs. my
+# 'about_dice_project.pl'; # not ready yet.. next release -- and really, would rather not use the same example
+# 'about_project2.pl';
+# 'about_lwp.pl';
+# 'about_xml.pl'; # really thinking about_xml_simple.pl
+# 'about_file_find.pl'; # good real world example of callbacks and sub refs
 
 is (Perl::Koans::Koans::run(),      0, 'Perl::Koans::Koans'); # http://is.gd/C34W25
 is (Perl::Koans::Truth::run(),      0, 'Perl::Koans::Truth'); 
