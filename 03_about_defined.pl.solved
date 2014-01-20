@@ -41,22 +41,25 @@ sub about_defined {
     # about_defined() -- defined is any value except undef
     my @foo = (1, -2 , 0);
     
-    is (defined $foo[0], 0, 'a positive integer is defined');
-    is (defined $foo[1], 0, 'a negative integer is defined');
-    is (defined $foo[2], 0, 'even 0 is defined');
+    is (defined $foo[0], 1, 'a positive integer is defined');
+    is (defined $foo[1], 1, 'a negative integer is defined');
+    is (defined $foo[2], 1, 'even 0 is defined');
+    
+    my @bar = ('a', '9');
+    is (defined $bar[0], 1, 'a letter is defined');
+    is (defined $bar[1], 1, 'an integer evaluated as a string is defined');
     
     my $str;
     
-    is (defined $str, __, 'declared variables initialize to undef');
+    is (defined $str, '', 'declared variables initialize to undef');
     
-    my @bar;
-    
-    is (defined @bar,  __, 'declared variables initialize to undef -- part 2');
-    is (defined $#bar, __, 'declared variables initialize to undef -- part 3');
+    # TODO determine the version of Perl this changed - when originally written, arrays initialized to undef. now defined (5.14.2)
+    is (defined @bar,  1, 'declared arrays do not initialize to undef -- part 1');
+    is (defined $#bar, 1, 'declared arrays do not initialize to undef -- part 2');
     
     @bar = (27, 42, undef);
-    is (defined $bar[__],   __, '27 and 42 are defined');
-    is (! defined $bar[__], __, 'undef is not defined');
+    is (defined $bar[1],  1, '27 and 42 are defined');
+    is (defined $bar[-1], '', 'undef is not defined -- part 1');
     
     return (Perl::Koans::get_return_code()); 
 }
@@ -67,9 +70,9 @@ sub about_undef {
     
     # for many intents and purposes, Perl defines true as '1' and false as '' .
     # functions like 'defined' and 'exists' use this concept of truthiness
-    is (defined __, '', 'undef is not defined'); 
+    is (defined undef, '', 'undef is not defined -- part 2'); 
     
-    is (defined $foo, __, 'declared variables that have not been assigned are undef');
+    is (defined $foo, '', 'declared variables that have not been assigned are undef');
     
     return (Perl::Koans::get_return_code()); 
 }
@@ -83,11 +86,11 @@ sub about_exists {
     
     $hash{fizz} = 'bang';
     
-    is (exists $hash{key}, 1, 'an empty string is returned when the key doesn\'t exist');
+    is (exists $hash{key}, '', 'an empty string is returned when the key doesn\'t exist');
     
     $hash{key} = 'board';
     
-    is (exists $hash{key}, '', '1 is returned when the key exists');
+    is (exists $hash{key}, 1, '1 is returned when the key exists');
     
     return (Perl::Koans::get_return_code());
 }
