@@ -62,7 +62,7 @@ sub about_std_io {
     
     # sprintf() and it's louder cousin printf() do what you'd expect coming from any other lanaguage
     # see `perldoc -f sprintf` or http://perldoc.perl.org/functions/sprintf.html for a complete list of modifiers
-    my $change = sprintf("$5 less than $20 is %s%f", '$', 20 - 5);
+    my $change = sprintf('$5 less than $20 is %s%i', '$', 20 - 5);
     is ($change, __, 'sprintf() makes it easier to interpolate variables/data into strings - part 1');
     
     my $os     = sprintf('My operating system is %s', $^O); # more in about_perlvars.pl
@@ -73,11 +73,11 @@ sub about_std_io {
 	is (sprintf('%x', 42),        __, 'sprintf() uses [%x] to format parameters as hex numbers');
 	is (sprintf('%f', 27),        __, 'sprintf() uses [%f] to format parameters as floating point numbers');
 	
-	is (sprintf('%d, %f', 10**100, 10**199),                      __, 'sprintf() allows multiple, different modifiers');
+	# TODO figure out why we were overflowing on the larger numbers on OSX
+	#is (sprintf('%d, %f', 10**100, 10**199),                      __, 'sprintf() allows multiple, different modifiers');
+	is (sprintf('%d, %f', 5**10, 10**20),                      __, 'sprintf() allows multiple, different modifiers');
 	is (sprintf('http://%s:%s/%s', 'google.com', '80', 'search'), __, 'common usage of sprintf()');
 
-    
-    # TODO turn this into a test? i think it might be enough to just demonstrate it
     printf('
            decimal:                   %d
            unsigned decimal:          %u
@@ -88,8 +88,9 @@ sub about_std_io {
            floating point in e/f:     %g',
            
            10, 10, 10, 10, 10, 10, 10 # using the same number repeatedly to show that printf() doesn't change the value, just how it is represented
-    );     
-    
+    );
+	print "\n";
+    is (1, __, 'fix this test to proceed'); # TODO decide if this is the right way to get people to look at this table
     
     return (Perl::Koans::get_return_code()); 
 }
@@ -97,6 +98,7 @@ sub about_std_io {
 sub about_filehandle_io {
     # about_filehandle_io() - open()/close()/ $fh vs FILE, read, eof, seek(), write
     
+	# TODO dump this hash to make the contents/source more understandable
     my %files = (
         in        => $Perl::Koans::WINDOWS ? sprintf('%s/system.ini', $ENV{WINDIR})          : '/etc/passwd', # need to confirm this file exists on Windows
         overwrite => $Perl::Koans::WINDOWS ? sprintf('%s/overwrite.%s.txt', $ENV{TMP}, time) : sprintf('/tmp/overwrite.%s', time), 
@@ -112,10 +114,11 @@ sub about_filehandle_io {
     my $in_file_as_scalar = <$in_fh>;
     my @in_file_as_array  = <$in_fh>;
     
-    is (ref $in_file_as_scalar, __, 'reading a file into a scalar');
+    is (ref $in_file_as_scalar, __, 'reading a file into a scalar'); # TODO err.. what are we trying to say here? a scalar isn't a ref (but a ref is a scalar..), but that isn't related to filehandles
     is (ref \@in_file_as_array, __, 'reading a file into an array');
     
-    is (join("\n", @in_file_as_array), __, 'reading a file into an array splits elements on \n');
+	# TODO need to make the answer/intention more clear here -- looks like we were thinking that $in_file_as_scalar would contain the entire file, but we only actually read the first line..
+    #is (join("\n", @in_file_as_array), __, 'reading a file into an array splits elements on \n');
     
     my $overwrite_before = get_contents($files{overwrite});
     my $append_before    = get_contents($files{append});
