@@ -40,12 +40,12 @@ use Perl::Koans;
 sub about_time {
     # about_time()
     
-    my $before = time();
+    my $start = time();
     sleep 1;
-    my $after = time();
+    my $finish = time();
     
-    is ($before > $after, 1, "time() returns the number of seconds since the epoch, 00:00 January 1, 1970 GMT");
-    
+    is ($finish - $start, __, "time() returns the number of seconds since the epoch, 00:00 January 1, 1970 GMT and is often used to keep track of how long an operation takes");
+        
     # more information in about_context.pl
     my @lt_array  = localtime(); # definition of elements: http://perldoc.perl.org/functions/localtime.html
     my $lt_scalar = localtime();
@@ -62,13 +62,6 @@ sub about_time {
     
     ## TODO: add a gmttime($lt_scalar) and localtime($gmt_scalar) type test to show how it can be used as a function as well
     
-    my $start = localtime();
-    sleep 1; # TODO yuck. should we just reuse $lt_scalar?
-    my $finish = localtime();
-    
-    is ($finish - $start, __, "localtime() is often used to keep track of how long an operation takes"); # TODO yeah, this is not a good hint. its true, but you should be using time() instead
-    
-    
     return (Perl::Koans::get_return_code());
     
 }
@@ -83,7 +76,8 @@ sub about_time_hi_res {
     my $start  = Time::HiRes::gettimeofday();
     my $finish = Time::HiRes::gettimeofday();
     
-    is ($finish - $start > __, 1, "Time::HiRes::gettimeofday() gives you microsecond precision");
+    # HINT: think about why there isn't a 'sleep' above
+    isnt ($finish - $start, __, "Time::HiRes::gettimeofday() gives you microsecond precision");
     
     return (Perl::Koans::get_return_code());
 }
