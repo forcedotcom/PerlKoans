@@ -49,7 +49,7 @@ our @ISA = qw(Exporter);
 our @EXPORT = qw(is isnt is_deeply like ok fail pass unlike bail get_return_code print_illumination WINDOWS);
 our @EXPORT_OK = qw(display_progress);
 
-our $WINDOWS = ($^O =~ /win/) ? 1 : 0;
+our $WINDOWS = ($^O =~ /MSWin32/) ? 1 : 0;
 
 sub is {
     my ($got, $expected, $name) = @_;
