@@ -44,8 +44,11 @@ sub about_math {
     # increment/decrement
     my $foo = 10;
     
-    is ($foo++, __, "++ increments a variable by 1");
-    is ($foo--, __, "-- decrements a variable by 1");
+    $foo++;
+    is ($foo, __, "++ increments a variable by 1");
+    
+    $foo--;
+    is ($foo, __, "-- decrements a variable by 1");
     
     my $bar = 20;
     
@@ -61,15 +64,15 @@ sub about_math {
     $bar /= 2;
     is ($bar, __, "/= divides and conquers"); # couldn't help myself. since this is rarely (if ever) used, not sure we should keep it
     
-    # modulus
+    # modulo - http://en.wikipedia.org/wiki/Modulo_operation
     my $baz = 100;
-    is ($baz % 50, 0,  "% provides the modulus");
-    is ($baz % 10, __, "% provides the modulus - part 2"); # TODO better hint
+    is ($baz % 50, __,  "% provides the modulus");
+    is ($baz % 99, __, "% provides the modulus - part 2"); # TODO better hint
     
     my $even = __;
     my $odd  = __;
-    is ($even % 2, 1, "modulus is often used to determine even/odd");
-    is ($odd  % 2, 0, "modulus is often used to determine even/odd - part 2");
+    is ($even % 2, __, "modulus is often used to determine even/odd");
+    is ($odd  % 2, __, "modulus is often used to determine even/odd - part 2");
     
     # power of / sqrt
     my $base = 3;
