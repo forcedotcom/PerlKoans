@@ -122,12 +122,16 @@ sub about_filehandle_io {
 	# TODO need to make the answer/intention more clear here -- looks like we were thinking that $in_file_as_scalar would contain the entire file, but we only actually read the first line..
     #is (join("\n", @in_file_as_array), '', 'reading a file into an array splits elements on \n');
     
+	## to write contents out to a filehandle, use print $filehandle $contents
+	print $out_overwrite_fh 'OVERWRITE-1';
+	print $out_append_fh 'APPEND-1';
+	
     my $overwrite_before = get_contents($files{overwrite});
     my $append_before    = get_contents($files{append});
     
-    ## to write contents out to a filehandle, use print $filehandle $contents
-    print $out_overwrite_fh 'OVERWRITE';
-    print $out_append_fh    'APPEND';
+    ## write again
+    print $out_overwrite_fh 'OVERWRITE-2';
+    print $out_append_fh    'APPEND-2';
     
     ## file contents are not written until the filehandle is closed
     close ($in_fh);
@@ -137,8 +141,8 @@ sub about_filehandle_io {
     my $overwrite_after = get_contents($files{overwrite});
     my $append_after    = get_contents($files{append});
     
-    is ($overwrite_before eq $overwrite_after, __, 'overwrite file is different before/after');
-    is ($append_before    eq $append_after,    __, 'append file is different before/after');
+    is ($overwrite_before eq $overwrite_after, '', 'overwrite file is different before/after');
+    is ($append_before    eq $append_after,    '', 'append file is different before/after');
     
     like ($overwrite_after, qr/__/, 'overwrite file contains new content');
     like ($append_after,    qr/__/, 'append file contains new content');
@@ -238,12 +242,13 @@ sub get_contents {
     
     open (my $fh, '<', $ffp) or return undef;
     
+	# TODO fix this..
     if (wantarray()) {
-        my $contents = <$fh>;
-        return $contents;
-    } else {
         my @contents = <$fh>;
         return @contents;
+    } else {
+		my $contents = <$fh>;
+        return $contents;
     }
     
     close ($fh);

@@ -120,12 +120,16 @@ sub about_filehandle_io {
 	# TODO need to make the answer/intention more clear here -- looks like we were thinking that $in_file_as_scalar would contain the entire file, but we only actually read the first line..
     #is (join("\n", @in_file_as_array), __, 'reading a file into an array splits elements on \n');
     
+	## to write contents out to a filehandle, use print $filehandle $contents
+	print $out_overwrite_fh 'OVERWRITE-1';
+	print $out_append_fh 'APPEND-1';
+	
     my $overwrite_before = get_contents($files{overwrite});
     my $append_before    = get_contents($files{append});
     
-    ## to write contents out to a filehandle, use print $filehandle $contents
-    print $out_overwrite_fh 'OVERWRITE';
-    print $out_append_fh    'APPEND';
+    ## write again
+    print $out_overwrite_fh 'OVERWRITE-2';
+    print $out_append_fh    'APPEND-2';
     
     ## file contents are not written until the filehandle is closed
     close ($in_fh);
