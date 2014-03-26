@@ -106,9 +106,9 @@ sub about_filehandle_io {
     );
     
     ## to create a filehandle, use open(filehandle, direction, filename)
-    open (my $in_fh,            '<',  $files{in});
-    open (my $out_overwrite_fh, '>',  $files{overwrite});
-    open (my $out_append_fh,    '>>', $files{append});
+    open (my $in_fh,            '<',  $files{in})        or die "DIE:: unable to open[$files{in}]: $!";
+    open (my $out_overwrite_fh, '>',  $files{overwrite}) or die "DIE:: unable to open[$files{overwrite}]: $!";
+    open (my $out_append_fh,    '>>', $files{append})    or die "DIE:: unable to open[$files{append}]: $!";
     
     ## to read contents from a filehandle, use $var = <$filehandle>, or while (<$filehandle>) { $line = $_ }
     my $in_file_as_scalar = <$in_fh>;
@@ -123,6 +123,11 @@ sub about_filehandle_io {
 	## to write contents out to a filehandle, use print $filehandle $contents
 	print $out_overwrite_fh 'OVERWRITE-1';
 	print $out_append_fh 'APPEND-1';
+	
+	## file contents are not written until the filehandle is closed
+    close ($in_fh);
+    close ($out_overwrite_fh);
+    close ($out_append_fh);
 	
     my $overwrite_before = get_contents($files{overwrite});
     my $append_before    = get_contents($files{append});
@@ -161,6 +166,8 @@ sub about_filehandle_io {
 sub about_dirhandle_io {
     # about_dirhandle_io() - opendir()/readdir()/closedir()/seekdir()/telldir()/rewinddir()
     
+	# TODO finish about_dirhandle_io()
+	return 0;
     fail('about_dirhandle_io() is incomplete');
     
     my $dir = $Perl::Koans::WINDOWS ? $ENV{WINDIR} : '/tmp';
