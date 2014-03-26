@@ -242,12 +242,14 @@ sub get_contents {
     
     open (my $fh, '<', $ffp) or return undef;
     
-	# TODO fix this..
     if (wantarray()) {
         my @contents = <$fh>;
         return @contents;
     } else {
-		my $contents = <$fh>;
+	    my $contents;
+	    while ($_ = <$fh>) {
+            $contents .= $_;
+	    }
         return $contents;
     }
     
