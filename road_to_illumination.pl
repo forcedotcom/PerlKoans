@@ -33,6 +33,9 @@ package Perl::Koans;
 use strict;
 use warnings;
 
+use FindBin 1.51 qw( $RealBin );
+use lib $RealBin;
+
 use lib './lib';
 use Perl::Koans qw(bail print_illumination);
 
