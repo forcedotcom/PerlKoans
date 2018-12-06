@@ -51,7 +51,7 @@ sub about_defined {
     
     my @bar;
     
-    is (defined @bar,  __, 'declared variables initialize to undef -- part 2');
+    is (@bar,  __, 'declared variables initialize to undef -- part 2');
     is (defined $#bar, __, 'declared variables initialize to undef -- part 3');
     
     @bar = (27, 42, undef);
